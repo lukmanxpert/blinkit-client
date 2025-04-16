@@ -1,50 +1,37 @@
 import React from 'react'
 import logo from "../assets/logo.png"
-import { FaSearch } from 'react-icons/fa'
-import { TypeAnimation } from 'react-type-animation';
+import Search from './Search'
+import { Link, useNavigate } from 'react-router'
+import { FaRegUserCircle, FaShoppingCart } from 'react-icons/fa'
 
 const Nav = () => {
+  const navigate = useNavigate();
+  const redirectToLogin = () => {
+    navigate("/login")
+  }
   return (
     <header className='h-20 flex justify-between items-center shadow sticky top-0'>
-      <div className='container mx-auto flex justify-between items-center'>
+      <div className='container mx-auto flex justify-between items-center gap-4'>
         {/* logo */}
-        <div>
-          <img width={170} height={60} src={logo} alt="blinkIt logo" />
-        </div>
+        <Link to={"/"}>
+          <img width={window.innerWidth > 768 ? 170 : 100} height={window.innerWidth > 768 ? 60 : 40} src={logo} alt="blinkIt logo" />
+        </Link>
         {/* search */}
         <div>
-          <div className='flex justify-start items-center gap-4 p-2 border border-neutral-300 text-neutral-600 rounded-lg w-[300px] md:w-[400px]'>
-            <button className='cursor-pointer'>
-              <FaSearch />
-            </button>
-            <div>
-              <TypeAnimation
-                sequence={[
-                  'Search "Milk"',
-                  1000,
-                  'Search "Bread"',
-                  1000,
-                  'Search "Sugar"',
-                  1000,
-                  'Search "Chocolate"',
-                  1000,
-                  'Search "Egg"',
-                  1000,
-                  'Search "Oil"',
-                  1000,
-                  'Search "Noodles"',
-                  1000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-              />
-            </div>
-          </div>
+          <Search />
         </div>
         {/* login and cart */}
-        <div>
-          <p>Login And My Cart</p>
+        <div className='mr-2 md:hidden md:mr-0 flex items-center'>
+          <button>
+            <FaRegUserCircle size={25} />
+          </button>
+        </div>
+        <div className='hidden md:flex items-center text-white gap-6'>
+          <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
+          <button className='flex gap-2 items-center justify-between bg-green-800 p-2 rounded-lg'>
+            <FaShoppingCart className='animate-bounce' />
+            <p className='font-semibold'>My Cart</p>
+          </button>
         </div>
       </div>
     </header>
