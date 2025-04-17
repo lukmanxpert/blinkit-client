@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Axios from '../utils/Axios';
+import summaryApi from '../common/summaryApi';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -14,14 +17,20 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-    console.log(name, email, password, confirmPassword);
+    if (password !== confirmPassword) {
+      return toast.error("Password and Confirm Password must be same!")
+    }
+    // apis
+    const response = await Axios({
+      ...summaryApi.register
+    })
   }
   // validate value
   const validateValue = Object.values(formData).every(el => el)
@@ -55,7 +64,7 @@ const Register = () => {
             </button>
           </div>
         </div>
-        <button className={`btn ${validateValue ? 'bg-green-700' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Register</button>
+        <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Register</button>
       </form>
     </div>
   )
