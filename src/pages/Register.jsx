@@ -23,6 +23,8 @@ const Register = () => {
     const confirmPassword = form.confirmPassword.value;
     console.log(name, email, password, confirmPassword);
   }
+  // validate value
+  const validateValue = Object.values(formData).every(el => el)
   return (
     <div className='bg-white mt-2 flex flex-col gap-2 items-center'>
       <p className='text-2xl capitalize font-bold mt-6'>Welcome to Binkeyit</p>
@@ -53,9 +55,7 @@ const Register = () => {
             </button>
           </div>
         </div>
-        <div>
-          <button className='btn cursor-pointer' type='submit'>Register</button>
-        </div>
+        <button className={`btn ${validateValue ? 'bg-green-700' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Register</button>
       </form>
     </div>
   )
