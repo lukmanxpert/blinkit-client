@@ -31,6 +31,7 @@ const Register = () => {
     const response = await Axios({
       ...summaryApi.register
     })
+    console.log("Response", response);
   }
   // validate value
   const validateValue = Object.values(formData).every(el => el)

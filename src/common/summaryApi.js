@@ -2,7 +2,7 @@ export const baseUrl = "http://localhost:9000";
 
 const summaryApi = {
   register: {
-    url: "http://localhost:9000",
+    url: "/api/user/register",
     method: "post",
   },
 };
