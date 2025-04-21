@@ -63,6 +63,7 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
+          <Link to={"/forgot-password"} className='mt-1 block ml-auto hover:text-primary-100'>Forgot password?</Link>
         </div>
         <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Register</button>
         <div className='text-center'>
