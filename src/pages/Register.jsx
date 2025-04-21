@@ -54,9 +54,7 @@ const Register = () => {
       axiosToastError(error)
     }
   }
-  // validate value
-
-
+  
   const validateValue = Object.values(formData).every(el => el)
   return (
     <div className='bg-white mt-2 flex flex-col gap-2 items-center'>
