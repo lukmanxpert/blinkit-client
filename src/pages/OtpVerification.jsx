@@ -32,8 +32,8 @@ const OtpVerification = () => {
             axiosToastError(error)
         }
     }
-
-
+    console.log(formData);
+    
     return (
         <div className='bg-white mt-2 flex flex-col gap-2 items-center'>
             <p className='text-2xl capitalize font-bold mt-6'>Enter Otp</p>
@@ -43,7 +43,13 @@ const OtpVerification = () => {
                     <div className='flex gap-2 justify-between'>
                         {
                             formData.map((el, index) => {
-                                return <input key={index} autoFocus className='p-2 bg-blue-50 max-w-14 rounded-lg outline-2' maxLength={1} id='otp' type="text" />
+                                return <input key={index} autoFocus className='p-2 bg-blue-50 max-w-14 rounded-lg outline-2 text-center' value={formData[index]} onChange={(e) => {
+                                    const value = e.target.value;
+                                    const newFormData = [...formData];
+                                    newFormData[index] = value;
+                                    setFormData(newFormData)
+                                    console.log(index, value);
+                                }} maxLength={1} id='otp' type="text" />
                             })
                         }
                     </div>
