@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 import Axios from '../utils/Axios';
 import summaryApi from '../common/summaryApi';
@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router"
 
 const OtpVerification = () => {
     const navigate = useNavigate()
+    const inputRef = useRef([])
+
     const [formData, setFormData] = useState(["", "", "", "", "", ""])
 
     const validateValue = formData.every(el => el)
@@ -33,7 +35,7 @@ const OtpVerification = () => {
         }
     }
     console.log(formData);
-    
+
     return (
         <div className='bg-white mt-2 flex flex-col gap-2 items-center'>
             <p className='text-2xl capitalize font-bold mt-6'>Enter Otp</p>
@@ -43,13 +45,21 @@ const OtpVerification = () => {
                     <div className='flex gap-2 justify-between'>
                         {
                             formData.map((el, index) => {
-                                return <input key={index} autoFocus className='p-2 bg-blue-50 max-w-14 rounded-lg outline-2 text-center' value={formData[index]} onChange={(e) => {
-                                    const value = e.target.value;
-                                    const newFormData = [...formData];
-                                    newFormData[index] = value;
-                                    setFormData(newFormData)
-                                    console.log(index, value);
-                                }} maxLength={1} id='otp' type="text" />
+                                return <input key={index}
+                                    ref={(ref) => {
+                                        inputRef.current[index] = ref
+                                        return ref
+                                    }}
+                                    className='p-2 bg-blue-50 max-w-14 rounded-lg outline-2 text-center' value={formData[index]}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        const newFormData = [...formData];
+                                        newFormData[index] = value;
+                                        setFormData(newFormData)
+                                        if (value && index < 5) {
+                                            inputRef.current[index + 1].focus()
+                                        }
+                                    }} maxLength={1} id='otp' type="text" />
                             })
                         }
                     </div>
