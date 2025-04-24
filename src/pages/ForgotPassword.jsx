@@ -27,10 +27,10 @@ const ForgotPassword = () => {
             }
             if (response.data.success) {
                 toast.success(response.data.message)
+                navigate("/otp-verification", { state: formData })
                 setFormData({
                     email: ""
                 })
-                navigate("/otp-verification")
             }
             console.log("Response", response);
         } catch (error) {
@@ -50,7 +50,7 @@ const ForgotPassword = () => {
                 </div>
                 <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Send Otp</button>
                 <div className='text-center'>
-                    <p>Already have account ? <Link to={"/login"} className='text-secondary-200 font-bold text-center'>Register</Link></p>
+                    <p>Already have account ? <Link to={"/login"} className='text-secondary-200 font-bold text-center'>Login</Link></p>
                 </div>
             </form>
         </div>

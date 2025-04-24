@@ -1,13 +1,20 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 import Axios from '../utils/Axios';
 import summaryApi from '../common/summaryApi';
 import axiosToastError from '../utils/AxiosToastError';
-import { Link, useNavigate } from "react-router"
+import { Link, useLocation, useNavigate } from "react-router"
 
 const OtpVerification = () => {
     const navigate = useNavigate()
     const inputRef = useRef([])
+    const location = useLocation()
+
+    useEffect(() => {
+        if (!location?.state?.email) {
+            navigate("/forgot-password")
+        }
+    }, [])
 
     const [formData, setFormData] = useState(["", "", "", "", "", ""])
 
@@ -18,8 +25,11 @@ const OtpVerification = () => {
         // apis
         try {
             const response = await Axios({
-                ...summaryApi.forgot_password,
-                data: formData
+                ...summaryApi.forgot_password_otp_verification,
+                data: {
+                    otp: formData.join(""),
+                    email: location.state?.email
+                }
             })
             if (response.data.error) {
                 return toast.error(response.data.message)
@@ -27,14 +37,12 @@ const OtpVerification = () => {
             if (response.data.success) {
                 toast.success(response.data.message)
                 setFormData(["", "", "", "", "", ""])
-                // navigate("/otp-verification")
             }
             console.log("Response", response);
         } catch (error) {
             axiosToastError(error)
         }
     }
-    console.log(formData);
 
     return (
         <div className='bg-white mt-2 flex flex-col gap-2 items-center'>
