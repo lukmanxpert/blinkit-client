@@ -8,6 +8,7 @@ import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
 import OtpVerification from './pages/OtpVerification.jsx'
+import ResetPassword from './pages/ResetPassword.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/register' element={<Register />}></Route>
         <Route path='/forgot-password' element={<ForgotPassword />}></Route>
         <Route path='/otp-verification' element={<OtpVerification />}></Route>
+        <Route path='/reset-password' element={<ResetPassword />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>

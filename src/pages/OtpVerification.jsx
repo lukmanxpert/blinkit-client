@@ -37,6 +37,12 @@ const OtpVerification = () => {
             if (response.data.success) {
                 toast.success(response.data.message)
                 setFormData(["", "", "", "", "", ""])
+                navigate("/reset-password", {
+                    state: {
+                        data: response.data,
+                        email: location?.state?.email
+                    }
+                })
             }
             console.log("Response", response);
         } catch (error) {
