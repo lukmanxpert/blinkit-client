@@ -3,8 +3,12 @@ import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router';
 import Axios from '../utils/Axios';
 import axiosToastError from '../utils/AxiosToastError';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import summaryApi from '../common/summaryApi';
 
 const ResetPassword = () => {
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [data, setData] = useState({
         email: "",
         newPassword: "",
@@ -38,8 +42,8 @@ const ResetPassword = () => {
         // apis
         try {
             const response = await Axios({
-                ...summaryApi.forgot_password,
-                data: formData
+                ...summaryApi.reset_password,
+                data: data
             })
             if (response.data.error) {
                 return toast.error(response.data.message)
@@ -47,9 +51,11 @@ const ResetPassword = () => {
             if (response.data.success) {
                 toast.success(response.data.message)
                 setData({
+                    email: "",
                     newPassword: "",
                     confirmPassword: ""
                 })
+                navigate("/login")
             }
             console.log("Response", response);
         } catch (error) {
@@ -60,17 +66,27 @@ const ResetPassword = () => {
     const validateValue = Object.values(data).every(el => el)
     return (
         <div className='bg-white mt-2 flex flex-col gap-2 items-center'>
-            <p className='text-2xl capitalize font-bold mt-6'>Forgot Password</p>
+            <p className='text-2xl capitalize font-bold mt-6'>Reset Password</p>
             <form onSubmit={handleSubmit} className='grid gap-4 mb-10 w-full px-4 max-w-3xl'>
                 <div className='flex flex-col w-full'>
                     <label htmlFor="newPassword" className='font-bold my-1'>New Password: </label>
-                    <input className='p-2 bg-blue-50 w-full rounded-lg outline-2' id='newPassword' type="password" name='newPassword' placeholder='Write new password' value={data.newPassword} onChange={handleChange} />
+                    <div className='relative'>
+                        <input className='p-2 bg-blue-50 w-full rounded-lg outline-2' id='newPassword' type={showPassword ? "text" : "password"} name='newPassword' placeholder='Write new password' value={data.newPassword} onChange={handleChange} />
+                        <button type='button' onClick={() => setShowPassword(!showPassword)} className='absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
                 </div>
                 <div className='flex flex-col w-full'>
                     <label htmlFor="confirmNewPassword" className='font-bold my-1'>Confirm New Password: </label>
-                    <input className='p-2 bg-blue-50 w-full rounded-lg outline-2' id='confirmNewPassword' type="password" name='confirmPassword' placeholder='Confirm new password' value={data.confirmPassword} onChange={handleChange} />
+                    <div className='relative'>
+                        <input className='p-2 bg-blue-50 w-full rounded-lg outline-2' id='confirmNewPassword' type={showConfirmPassword ? "text" : "password"} name='confirmPassword' placeholder='Confirm new password' value={data.confirmPassword} onChange={handleChange} />
+                        <button type='button' onClick={() => setShowConfirmPassword(!showConfirmPassword)} className='absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'>
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
                 </div>
-                <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Send Otp</button>
+                <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Change Password</button>
                 <div className='text-center'>
                     <p>Already have account ? <Link to={"/login"} className='text-secondary-200 font-bold text-center'>Login</Link></p>
                 </div>
