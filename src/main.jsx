@@ -9,19 +9,23 @@ import Register from './pages/Register.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
 import OtpVerification from './pages/OtpVerification.jsx'
 import ResetPassword from './pages/ResetPassword.jsx'
+import { Provider } from 'react-redux'
+import { store } from './store/store.js'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App />}>
-        <Route index element={<Home />}></Route>
-        <Route path='/search' element={<SearchPage />}></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/register' element={<Register />}></Route>
-        <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-        <Route path='/otp-verification' element={<OtpVerification />}></Route>
-        <Route path='/reset-password' element={<ResetPassword />}></Route>
-      </Route>
-    </Routes>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />}>
+          <Route index element={<Home />}></Route>
+          <Route path='/search' element={<SearchPage />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/register' element={<Register />}></Route>
+          <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+          <Route path='/otp-verification' element={<OtpVerification />}></Route>
+          <Route path='/reset-password' element={<ResetPassword />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 )
