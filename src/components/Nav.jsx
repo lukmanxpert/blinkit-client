@@ -3,12 +3,15 @@ import logo from "../assets/logo.png"
 import Search from './Search'
 import { Link, useNavigate } from 'react-router'
 import { FaRegUserCircle, FaShoppingCart } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 const Nav = () => {
   const navigate = useNavigate();
   const redirectToLogin = () => {
     navigate("/login")
   }
+  const user = useSelector((state) => state?.user)
+  console.log("user from redux", user);
   return (
     <header className='h-20 flex justify-between items-center shadow sticky top-0 bg-white'>
       <div className='container mx-auto flex justify-between items-center gap-4'>
