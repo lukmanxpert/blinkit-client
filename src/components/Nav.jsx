@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../assets/logo.png"
 import Search from './Search'
 import { Link, useNavigate } from 'react-router'
 import { FaRegUserCircle, FaShoppingCart } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
+import UserMenu from './UserMenu'
 
 const Nav = () => {
+  const [openUserMenu, setOpenUserMenu] = useState(false)
   const navigate = useNavigate();
   const redirectToLogin = () => {
     navigate("/login")
@@ -30,7 +33,29 @@ const Nav = () => {
           </button>
         </div>
         <div className='hidden md:flex items-center text-white gap-6'>
-          <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
+          {user._id ? <div className='relative'>
+            <div onClick={() => setOpenUserMenu(prevState => !prevState)} className='text-black flex justify-center items-center gap-1 cursor-pointer select-none'>
+              <p className='font-semibold'>Account</p>
+              {
+                openUserMenu ? (
+                  <GoTriangleUp size={25} />
+                ) : (
+                  <GoTriangleDown size={25} />
+                )
+              }
+            </div>
+            {
+              openUserMenu && (
+                <div className='absolute right-0 top-12'>
+                  <div className='bg-white rounded p-4 min-w-52 lg:shadow-lg'>
+                    <UserMenu />
+                  </div>
+                </div>
+              )
+            }
+          </div> :
+            <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
+          }
           <button className='flex gap-2 items-center justify-between bg-green-800 p-2 rounded-lg'>
             <FaShoppingCart className='animate-bounce' />
             <p className='font-semibold'>My Cart</p>
