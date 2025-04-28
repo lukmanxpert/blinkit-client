@@ -7,6 +7,8 @@ import Axios from '../utils/Axios'
 import summaryApi from '../common/summaryApi'
 import toast from 'react-hot-toast'
 import axiosToastError from '../utils/AxiosToastError'
+import { FaExternalLinkAlt } from "react-icons/fa";
+
 
 const UserMenu = ({ closeModal }) => {
     const user = useSelector((state) => state.user)
@@ -35,8 +37,12 @@ const UserMenu = ({ closeModal }) => {
     return (
         <div className='text-neutral-800'>
             <h1 className='font-semibold'>My Account</h1>
-            <p>{user?.name || user?.number}</p>
-
+            <div className='flex gap-2 items-center'>
+                <p>{user?.name || user?.number}</p>
+                <Link to={"/dashboard/profile"}>
+                    <FaExternalLinkAlt size={15} className='hover:text-primary-100 transition' />
+                </Link>
+            </div>
             <Divider />
 
             <div className='flex flex-col gap-2'>

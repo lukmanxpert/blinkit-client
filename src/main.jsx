@@ -12,6 +12,8 @@ import ResetPassword from './pages/ResetPassword.jsx'
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
 import UserMenuMobile from './pages/UserMenuMobile.jsx'
+import Dashboard from './layouts/Dashboard.jsx'
+import Profile from './pages/Profile.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -26,6 +28,9 @@ createRoot(document.getElementById('root')).render(
           <Route path='/otp-verification' element={<OtpVerification />}></Route>
           <Route path='/reset-password' element={<ResetPassword />}></Route>
           <Route path='/user-menu' element={<UserMenuMobile />}></Route>
+          <Route path='/dashboard' element={<Dashboard />}>
+            <Route path='/dashboard/profile' element={<Profile />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
