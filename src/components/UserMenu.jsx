@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import Divider from './Divider'
 import { logOut } from '../store/userSlice'
 import Axios from '../utils/Axios'
@@ -11,6 +11,7 @@ import axiosToastError from '../utils/AxiosToastError'
 const UserMenu = ({ closeModal }) => {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleLogOut = async () => {
         try {
@@ -18,10 +19,13 @@ const UserMenu = ({ closeModal }) => {
                 ...summaryApi.logOut
             })
             if (response.data.success) {
-                closeModal()
+                if (closeModal) {
+                    closeModal()
+                }
                 dispatch(logOut())
                 localStorage.clear()
                 toast.success(response.data.message)
+                navigate("/")
             }
         } catch (error) {
             axiosToastError(error)

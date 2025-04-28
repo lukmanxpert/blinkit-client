@@ -8,16 +8,26 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import UserMenu from './UserMenu'
 
 const Nav = () => {
+  const user = useSelector((state) => state?.user)
+  console.log("user from redux", user);
   const [openUserMenu, setOpenUserMenu] = useState(false)
   const navigate = useNavigate();
   const redirectToLogin = () => {
     navigate("/login")
   }
+
   const handleCloseUserMenu = () => {
     setOpenUserMenu(false)
   }
-  const user = useSelector((state) => state?.user)
-  console.log("user from redux", user);
+  const handleMobileMenu = () => {
+    if (!user._id) {
+      return navigate("/login")
+    }
+    if (user._id) {
+      navigate("/user-menu")
+    }
+  }
+
   return (
     <header className='h-20 flex justify-between items-center shadow sticky top-0 bg-white'>
       <div className='container mx-auto flex justify-between items-center gap-4'>
@@ -32,7 +42,7 @@ const Nav = () => {
         {/* login and cart */}
         <div className='mr-2 md:hidden md:mr-0 flex items-center'>
           <button>
-            <FaRegUserCircle size={25} />
+            <FaRegUserCircle onClick={handleMobileMenu} size={25} />
           </button>
         </div>
         <div className='hidden md:flex items-center text-white gap-6'>
