@@ -13,6 +13,9 @@ const Nav = () => {
   const redirectToLogin = () => {
     navigate("/login")
   }
+  const handleCloseUserMenu = () => {
+    setOpenUserMenu(false)
+  }
   const user = useSelector((state) => state?.user)
   console.log("user from redux", user);
   return (
@@ -48,7 +51,7 @@ const Nav = () => {
               openUserMenu && (
                 <div className='absolute right-0 top-12'>
                   <div className='bg-white rounded p-4 min-w-52 lg:shadow-lg'>
-                    <UserMenu />
+                    <UserMenu closeModal={handleCloseUserMenu} />
                   </div>
                 </div>
               )
