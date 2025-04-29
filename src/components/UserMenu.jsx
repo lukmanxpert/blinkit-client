@@ -34,12 +34,18 @@ const UserMenu = ({ closeModal }) => {
         }
     }
 
+    const handleClose = () => {
+        if (closeModal) {
+            closeModal()
+        }
+    }
+
     return (
         <div className='text-neutral-800'>
             <h1 className='font-semibold'>My Account</h1>
             <div className='flex gap-2 items-center'>
                 <p>{user?.name || user?.number}</p>
-                <Link to={"/dashboard/profile"}>
+                <Link onClick={handleClose} to={"/dashboard/profile"}>
                     <FaExternalLinkAlt size={15} className='hover:text-primary-100 transition' />
                 </Link>
             </div>
@@ -47,8 +53,8 @@ const UserMenu = ({ closeModal }) => {
             <Divider />
 
             <div className='flex flex-col gap-2'>
-                <Link to={"/dashboard/my-orders"} className='hover:bg-primary-100 transition p-1 rounded'>My Order</Link>
-                <Link to={"/dashboard/address"} className='hover:bg-primary-100 transition p-1 rounded'>Save Address</Link>
+                <Link onClick={handleClose} to={"/dashboard/my-orders"} className='hover:bg-primary-100 transition p-1 rounded'>My Order</Link>
+                <Link onClick={handleClose} to={"/dashboard/address"} className='hover:bg-primary-100 transition p-1 rounded'>Save Address</Link>
                 <button onClick={handleLogOut} className='cursor-pointer text-left text-red-600 font-semibold hover:bg-primary-100 transition p-1 rounded'>Log Out</button>
             </div>
         </div>
