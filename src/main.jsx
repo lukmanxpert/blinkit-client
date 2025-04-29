@@ -14,6 +14,8 @@ import { store } from './store/store.js'
 import UserMenuMobile from './pages/UserMenuMobile.jsx'
 import Dashboard from './layouts/Dashboard.jsx'
 import Profile from './pages/Profile.jsx'
+import MyOrders from './pages/MyOrders.jsx'
+import SaveAddress from './pages/SaveAddress.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -30,6 +32,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/user-menu' element={<UserMenuMobile />}></Route>
           <Route path='/dashboard' element={<Dashboard />}>
             <Route path='/dashboard/profile' element={<Profile />} />
+            <Route path='/dashboard/my-orders' element={<MyOrders />} />
+            <Route path='/dashboard/address' element={<SaveAddress />} />
           </Route>
         </Route>
       </Routes>

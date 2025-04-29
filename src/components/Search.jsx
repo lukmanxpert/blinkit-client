@@ -10,7 +10,6 @@ const Search = () => {
         const isSearch = location.pathname === "/search"
         setIsSearch(isSearch)
     }, [location])
-    console.log("isSearch", isSearch);
     const navigate = useNavigate();
     const navigateToSearch = () => {
         navigate("/search")

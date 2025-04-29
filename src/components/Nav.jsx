@@ -9,7 +9,6 @@ import UserMenu from './UserMenu'
 
 const Nav = () => {
   const user = useSelector((state) => state?.user)
-  console.log("user from redux", user);
   const [openUserMenu, setOpenUserMenu] = useState(false)
   const navigate = useNavigate();
   const redirectToLogin = () => {

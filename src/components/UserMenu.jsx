@@ -43,11 +43,12 @@ const UserMenu = ({ closeModal }) => {
                     <FaExternalLinkAlt size={15} className='hover:text-primary-100 transition' />
                 </Link>
             </div>
+
             <Divider />
 
             <div className='flex flex-col gap-2'>
-                <Link className='hover:bg-primary-100 transition p-1 rounded'>My Order</Link>
-                <Link className='hover:bg-primary-100 transition p-1 rounded'>Save Order</Link>
+                <Link to={"/dashboard/my-orders"} className='hover:bg-primary-100 transition p-1 rounded'>My Order</Link>
+                <Link to={"/dashboard/address"} className='hover:bg-primary-100 transition p-1 rounded'>Save Address</Link>
                 <button onClick={handleLogOut} className='cursor-pointer text-left text-red-600 font-semibold hover:bg-primary-100 transition p-1 rounded'>Log Out</button>
             </div>
         </div>
