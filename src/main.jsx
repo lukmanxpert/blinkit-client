@@ -16,6 +16,10 @@ import Dashboard from './layouts/Dashboard.jsx'
 import Profile from './pages/Profile.jsx'
 import MyOrders from './pages/MyOrders.jsx'
 import SaveAddress from './pages/SaveAddress.jsx'
+import Category from './pages/Category.jsx'
+import SubCategory from './pages/SubCategory.jsx'
+import UploadProduct from './pages/UploadProduct.jsx'
+import ProductAdmin from './pages/ProductAdmin.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -34,6 +38,10 @@ createRoot(document.getElementById('root')).render(
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route path='/dashboard/my-orders' element={<MyOrders />} />
             <Route path='/dashboard/address' element={<SaveAddress />} />
+            <Route path='/dashboard/category' element={<Category />} />
+            <Route path='/dashboard/sub-category' element={<SubCategory />} />
+            <Route path='/dashboard/upload-product' element={<UploadProduct />} />
+            <Route path='/dashboard/product' element={<ProductAdmin />} />
           </Route>
         </Route>
       </Routes>

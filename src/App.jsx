@@ -22,7 +22,9 @@ function App() {
 
   return (
     <div>
-      <Nav />
+      <div className='sticky top-0 left-0 z-50'>
+        <Nav />
+      </div>
       <section className='min-h-screen container mx-auto'>
         <Outlet></Outlet>
       </section>

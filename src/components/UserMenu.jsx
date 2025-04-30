@@ -53,6 +53,10 @@ const UserMenu = ({ closeModal }) => {
             <Divider />
 
             <div className='flex flex-col gap-2'>
+                <Link onClick={handleClose} to={"/dashboard/category"} className='hover:bg-primary-100 transition p-1 rounded'>Category</Link>
+                <Link onClick={handleClose} to={"/dashboard/sub-category"} className='hover:bg-primary-100 transition p-1 rounded'>Sub Category</Link>
+                <Link onClick={handleClose} to={"/dashboard/upload-product"} className='hover:bg-primary-100 transition p-1 rounded'>Upload Product</Link>
+                <Link onClick={handleClose} to={"/dashboard/product"} className='hover:bg-primary-100 transition p-1 rounded'>Product</Link>
                 <Link onClick={handleClose} to={"/dashboard/my-orders"} className='hover:bg-primary-100 transition p-1 rounded'>My Order</Link>
                 <Link onClick={handleClose} to={"/dashboard/address"} className='hover:bg-primary-100 transition p-1 rounded'>Save Address</Link>
                 <button onClick={handleLogOut} className='cursor-pointer text-left text-red-600 font-semibold hover:bg-primary-100 transition p-1 rounded'>Log Out</button>
