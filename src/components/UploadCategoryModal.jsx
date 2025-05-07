@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { IoClose } from "react-icons/io5";
 import uploadImage from '../utils/uploadImage';
+import Axios from '../utils/Axios';
+import summaryApi from '../common/summaryApi';
+import { toast } from 'react-hot-toast'
+import axiosToastError from '../utils/AxiosToastError';
 
 const UploadCategoryModal = ({ close }) => {
 
   const [loading, setLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
   const [data, setData] = useState({
     name: "",
     image: ""
@@ -28,8 +33,24 @@ const UploadCategoryModal = ({ close }) => {
     setLoading(false)
   }
   const validateValue = Object.values(data).every(el => el)
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    try {
+      setSubmitLoading(true)
+      const response = await Axios({
+        ...summaryApi.add_category,
+        data: data
+      })
+      const { data: responseData } = response
+      if (responseData.success) {
+        toast.success(responseData.message)
+        close()
+      }
+    } catch (error) {
+      axiosToastError(error)
+    } finally {
+      setSubmitLoading(false)
+    }
   }
   return (
     <section className='fixed transition top-0 bottom-0 left-0 right-0 p-4 bg-neutral-800/60 flex justify-center items-center'>
@@ -58,7 +79,7 @@ const UploadCategoryModal = ({ close }) => {
               </div>
             </div>
             <div>
-              <button disabled={!validateValue} className={`font-semibold bg-gray-500 w-full py-1 px-3 rounded cursor-pointer transition ${validateValue && "bg-primary-100 hover:bg-primary-200"}`}>Add Category</button>
+              <button disabled={!validateValue} className={`font-semibold bg-gray-500 w-full py-1 px-3 rounded cursor-pointer transition ${validateValue && "bg-primary-100 hover:bg-primary-200"}`}>{submitLoading ? "Submitting..." : "Add Category"}</button>
             </div>
           </form>
         </div>
