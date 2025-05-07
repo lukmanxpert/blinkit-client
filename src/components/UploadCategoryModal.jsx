@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { IoClose } from "react-icons/io5";
 import uploadImage from '../utils/uploadImage';
 
-
 const UploadCategoryModal = ({ close }) => {
 
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState({
     name: "",
     image: ""
@@ -20,12 +20,17 @@ const UploadCategoryModal = ({ close }) => {
     if (!file) {
       return
     }
+    setLoading(true)
     const response = await uploadImage(file)
     const { data: imageResponse } = response
     console.log(imageResponse.data.url);
     setData(prevData => ({ ...prevData, image: imageResponse.data.url }))
+    setLoading(false)
   }
-  console.log(data);
+  const validateValue = Object.values(data).every(el => el)
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
   return (
     <section className='fixed transition top-0 bottom-0 left-0 right-0 p-4 bg-neutral-800/60 flex justify-center items-center'>
       <div className='bg-white max-w-4xl w-full p-4 rounded'>
@@ -34,7 +39,7 @@ const UploadCategoryModal = ({ close }) => {
           <button className='cursor-pointer hover:scale-125 transition' onClick={close}><IoClose size={25} /></button>
         </div>
         <div>
-          <form className='my-2 space-y-4'>
+          <form onSubmit={handleSubmit} className='my-2 space-y-4'>
             <div className='flex flex-col gap-1'>
               <label className='font-semibold' htmlFor="name">
                 Category Name:
@@ -46,11 +51,14 @@ const UploadCategoryModal = ({ close }) => {
                 {data.image ? <img className='w-full h-full object-scale-down' src={data.image} alt="category-image" /> : <p>No Image Selected</p>}
               </div>
               <div>
-                <label className='font-semibold cursor-pointer border-primary-100 rounded px-3 py-1 border-2 hover:bg-primary-100 transition' htmlFor="uploadCategoryImage">
-                  Upload Image
+                <label className={`font-semibold cursor-pointer ${data.name ? "hover:bg-primary-100" : "bg-gray-400 border-none"} border-primary-100 rounded px-3 py-1 border-2 transition`} htmlFor={data.name && "uploadCategoryImage"}>
+                  {loading ? "Uploading..." : data.image ? "Change Image" : "Upload Image"}
                 </label>
                 <input className='hidden' onChange={handleUploadCategoryImage} type="file" name="image" id="uploadCategoryImage" />
               </div>
+            </div>
+            <div>
+              <button disabled={!validateValue} className={`font-semibold bg-gray-500 w-full py-1 px-3 rounded cursor-pointer transition ${validateValue && "bg-primary-100 hover:bg-primary-200"}`}>Add Category</button>
             </div>
           </form>
         </div>
