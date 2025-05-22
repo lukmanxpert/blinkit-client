@@ -11,6 +11,7 @@ const EditCategory = ({ close, fetchCategory, editData }) => {
     const [loading, setLoading] = useState(false)
     const [submitLoading, setSubmitLoading] = useState(false)
     const [data, setData] = useState({
+        _id: editData._id,
         name: editData.name,
         image: editData.image
     })
@@ -38,7 +39,7 @@ const EditCategory = ({ close, fetchCategory, editData }) => {
         try {
             setSubmitLoading(true)
             const response = await Axios({
-                ...summaryApi.add_category,
+                ...summaryApi.updateCategory,
                 data: data
             })
             const { data: responseData } = response
@@ -57,7 +58,7 @@ const EditCategory = ({ close, fetchCategory, editData }) => {
         <section className='fixed transition top-0 bottom-0 left-0 right-0 p-4 bg-neutral-800/60 flex justify-center items-center'>
             <div className='bg-white max-w-4xl w-full p-4 rounded'>
                 <div className='flex justify-between'>
-                    <h1 className='font-semibold text-lg'>Category</h1>
+                    <h1 className='font-semibold text-lg'>Update Category</h1>
                     <button className='cursor-pointer hover:scale-125 transition' onClick={close}><IoClose size={25} /></button>
                 </div>
                 <div>
@@ -69,7 +70,7 @@ const EditCategory = ({ close, fetchCategory, editData }) => {
                             <input className='py-1 px-3 border-2 rounded bg-blue-50 focus-within:border-primary-100 outline-none' placeholder='Enter category name' onChange={handleChange} type="text" value={data.name} name="name" id="name" />
                         </div>
                         <div className='flex gap-4'>
-                            <div className='w-32 h-32 grid place-items-center text-center border-primary-100 border-2 rounded'>
+                            <div className='w-32 grid place-items-center text-center border-primary-100 border-2 rounded'>
                                 {data.image ? <img className='w-full h-full object-scale-down' src={data.image} alt="category-image" /> : <p>No Image Selected</p>}
                             </div>
                             <div>
