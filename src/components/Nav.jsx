@@ -28,7 +28,7 @@ const Nav = () => {
   }
 
   return (
-    <header className='h-20 flex justify-between items-center shadow sticky top-0 bg-white'>
+    <header className='h-20 px-2 flex justify-between items-center shadow sticky top-0 bg-white'>
       <div className='container mx-auto flex justify-between items-center gap-4'>
         {/* logo */}
         <Link to={"/"}>
