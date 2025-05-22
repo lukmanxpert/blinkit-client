@@ -28,7 +28,10 @@ const UploadCategoryModal = ({ close, fetchCategory }) => {
     setLoading(true)
     const response = await uploadImage(file)
     const { data: imageResponse } = response
-    console.log(imageResponse.data.url);
+    if (!imageResponse?.data?.url) {
+      setLoading(false)
+      return toast.error("Something went wrong, Try Again")
+    }
     setData(prevData => ({ ...prevData, image: imageResponse.data.url }))
     setLoading(false)
   }
@@ -66,7 +69,7 @@ const UploadCategoryModal = ({ close, fetchCategory }) => {
               <label className='font-semibold' htmlFor="name">
                 Category Name:
               </label>
-              <input className='py-1 px-3 border-2 rounded bg-blue-50 focus-within:border-primary-100 outline-none' placeholder='Enter category name' onChange={handleChange} type="text" value={data.name} name="name" id="name" />
+              <input autoFocus className='py-1 px-3 border-2 rounded bg-blue-50 focus-within:border-primary-100 outline-none' placeholder='Enter category name' onChange={handleChange} type="text" value={data.name} name="name" id="name" />
             </div>
             <div className='flex gap-4'>
               <div className='w-32 grid place-items-center text-center border-primary-100 border-2 rounded'>
