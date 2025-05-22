@@ -6,9 +6,12 @@ import Loading from '../components/Loading'
 import NoData from '../components/NoData'
 import Axios from '../utils/Axios'
 import summaryApi from '../common/summaryApi'
+import EditCategory from '../components/EditCategory'
 
 const Category = () => {
   const [openUploadCategory, setOpenUploadCategory] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
+  const [editData, setEditData] = useState(null)
   // fetch category
   const [loading, setLoading] = useState(false)
   const [categoryData, setCategoryData] = useState([])
@@ -31,7 +34,6 @@ const Category = () => {
   useEffect(() => {
     fetchCategory()
   }, [])
-  console.log(categoryData);
   return (
     <div>
       <div className='flex justify-between shadow p-2'>
@@ -43,11 +45,18 @@ const Category = () => {
           <NoData />
         )
       }
-      <div className='p-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>
+      <div className='p-4 grid place-items-center grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2'>
         {
           categoryData.map((category, index) => {
-            return <div key={index} className='w-32 h-48 rounded shadow-md'>
+            return <div key={index} className='w-32 h-56 rounded shadow-md'>
               <img className='w-full p-2' src={category.image} alt={category.name} />
+              <div className='transition-all flex justify-between items-center gap-2 px-4'>
+                <button className='text-sm bg-green-100 px-2 py-1 rounded hover:bg-green-200 cursor-pointer' onClick={() => {
+                  setOpenEdit(true)
+                  setEditData(category)
+                }}>Edit</button>
+                <button className='text-sm bg-red-100 px-2 py-1 rounded hover:bg-red-200 cursor-pointer'>Delete</button>
+              </div>
             </div>
           })
         }
@@ -59,6 +68,11 @@ const Category = () => {
       }
       {
         openUploadCategory && <UploadCategoryModal fetchCategory={fetchCategory} close={() => setOpenUploadCategory(false)} />
+      }
+      {
+        openEdit && (
+          <EditCategory editData={editData} close={() => setOpenEdit(false)} fetchCategory={fetchCategory} />
+        )
       }
     </div>
   )

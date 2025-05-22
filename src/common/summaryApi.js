@@ -11,48 +11,52 @@ const summaryApi = {
   },
   forgot_password: {
     url: "/api/user/forgot-password",
-    method: "put"
+    method: "put",
   },
   forgot_password_otp_verification: {
     url: "/api/user/verify-forgot-password-otp",
-    method: "put"
+    method: "put",
   },
   reset_password: {
     url: "/api/user/reset-password",
-    method: "put"
+    method: "put",
   },
   refresh_token: {
     url: "/api/user/refresh-token",
-    method: "post"
+    method: "post",
   },
   userDetails: {
     url: "/api/user/user-details",
-    method: "get"
+    method: "get",
   },
   logOut: {
     url: "/api/user/logout",
-    method: "post"
+    method: "post",
   },
   uploadAvatar: {
     url: "/api/user/upload-avatar",
-    method: "put"
+    method: "put",
   },
   updateUser: {
     url: "/api/user/update-user",
-    method: "put"
+    method: "put",
   },
   add_category: {
     url: "/api/category/add-category",
-    method: "post"
+    method: "post",
   },
   uploadImage: {
     url: "/api/file/upload",
-    method: "post"
+    method: "post",
   },
   getCategory: {
     url: "/api/category/get",
-    method: "get"
-  }
+    method: "get",
+  },
+  updateCategory: {
+    url: "/api/category/update",
+    method: "put",
+  },
 };
 
 export default summaryApi;
