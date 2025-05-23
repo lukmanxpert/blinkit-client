@@ -58,7 +58,7 @@ const Category = () => {
     }
   }
   return (
-    <div>
+    <section>
       <div className='flex justify-between shadow p-2'>
         <h1 className='font-semibold'>Category</h1>
         <button onClick={() => setOpenUploadCategory(true)} className='border border-primary-100 px-3 py-1 rounded text-sm hover:bg-primary-100 hover:text-white transition cursor-pointer'>Add Category</button>
@@ -105,7 +105,7 @@ const Category = () => {
           <ConfirmBox confirm={handleDeleteProduct} cancel={() => setOpenDelete(false)} close={() => setOpenDelete(false)} />
         )
       }
-    </div>
+    </section>
   )
 }
 
