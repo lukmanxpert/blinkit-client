@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AddSubCategoryModal from '../components/AddSubCategoryModal'
+import UploadSubCategoryModal from '../components/UploadSubCategoryModal'
 
 const SubCategory = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false)
@@ -13,7 +13,7 @@ const SubCategory = () => {
       </div>
       {
         openAddSubCategory && (
-          <AddSubCategoryModal close={()=>setOpenAddSubCategory(false)} />
+          <UploadSubCategoryModal close={()=>setOpenAddSubCategory(false)} />
         )
       }
     </section>
