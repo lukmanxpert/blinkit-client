@@ -1,8 +1,11 @@
 import React from 'react'
 import { Outlet } from 'react-router'
 import UserMenu from '../components/UserMenu'
+import { useSelector } from 'react-redux'
 
 const Dashboard = () => {
+    const user = useSelector(state => state.user)
+    console.log(user);
     return (
         <section className='bg-white'>
             <div className='container mx-auto p-3 flex'>

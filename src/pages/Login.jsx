@@ -75,7 +75,7 @@ const Login = () => {
           </div>
           <Link to={"/forgot-password"} className='mt-1 block ml-auto hover:text-primary-100'>Forgot password?</Link>
         </div>
-        <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Register</button>
+        <button disabled={!validateValue} className={`btn ${validateValue ? 'bg-green-700 hover:bg-green-800' : 'bg-gray-500'} text-white font-semibold`} type='submit'>Login</button>
         <div className='text-center'>
           <p>Don't have any account ? <Link to={"/register"} className='text-secondary-200 font-bold text-center'>Register</Link></p>
         </div>

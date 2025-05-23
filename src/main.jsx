@@ -20,6 +20,7 @@ import Category from './pages/Category.jsx'
 import SubCategory from './pages/SubCategory.jsx'
 import UploadProduct from './pages/UploadProduct.jsx'
 import ProductAdmin from './pages/ProductAdmin.jsx'
+import AdminPermission from './layouts/AdminPermission.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -38,10 +39,10 @@ createRoot(document.getElementById('root')).render(
             <Route path='/dashboard/profile' element={<Profile />} />
             <Route path='/dashboard/my-orders' element={<MyOrders />} />
             <Route path='/dashboard/address' element={<SaveAddress />} />
-            <Route path='/dashboard/category' element={<Category />} />
-            <Route path='/dashboard/sub-category' element={<SubCategory />} />
-            <Route path='/dashboard/upload-product' element={<UploadProduct />} />
-            <Route path='/dashboard/product' element={<ProductAdmin />} />
+            <Route path='/dashboard/category' element={<AdminPermission><Category /></AdminPermission>} />
+            <Route path='/dashboard/sub-category' element={<AdminPermission><SubCategory /></AdminPermission>} />
+            <Route path='/dashboard/upload-product' element={<AdminPermission><UploadProduct /></AdminPermission>} />
+            <Route path='/dashboard/product' element={<AdminPermission><ProductAdmin /></AdminPermission>} />
           </Route>
         </Route>
       </Routes>
