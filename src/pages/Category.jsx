@@ -9,6 +9,7 @@ import summaryApi from '../common/summaryApi'
 import EditCategory from '../components/EditCategory'
 import ConfirmBox from '../components/ConfirmBox'
 import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
 
 const Category = () => {
   const [openUploadCategory, setOpenUploadCategory] = useState(false)
@@ -21,25 +22,10 @@ const Category = () => {
   // fetch category
   const [loading, setLoading] = useState(false)
   const [categoryData, setCategoryData] = useState([])
-  const fetchCategory = async () => {
-    try {
-      setLoading(true)
-      const response = await Axios({
-        ...summaryApi.getCategory
-      })
-      const { data: responseData } = response
-      if (responseData.success) {
-        setCategoryData(responseData.data)
-      }
-    } catch (error) {
-      axiosToastError(error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const categories = useSelector(state => state.products.allCategory)
   useEffect(() => {
-    fetchCategory()
-  }, [])
+    setCategoryData(categories)
+  }, [categories])
   // handle delete function
   const handleDeleteProduct = async () => {
     try {

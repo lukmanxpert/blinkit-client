@@ -6,7 +6,7 @@ const initialState = {
   products: [],
 };
 
-const productSlice = createSlice({
+const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
@@ -16,5 +16,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setAllCategory } = productSlice.actions;
-export default productSlice.reducer;
+export const { setAllCategory } = productsSlice.actions;
+export default productsSlice.reducer;
