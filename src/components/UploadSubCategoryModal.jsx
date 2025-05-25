@@ -31,7 +31,7 @@ const UploadSubCategoryModal = ({ close }) => {
         setSubCategoryData(prevData => ({ ...prevData, image: imageResponse.data.url }))
         setLoading(false)
     }
-    const validateValue = Object.values(subCategoryData).every(el => el)
+    // const validateValue = Object.values(subCategoryData).every(el => el)
     console.log(subCategoryData);
     return (
         <section className='fixed top-0 left-0 right-0 bottom-0 bg-neutral-700/60 z-50 flex justify-center items-center'>
