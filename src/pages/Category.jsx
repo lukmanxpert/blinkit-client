@@ -36,7 +36,6 @@ const Category = () => {
       const { data } = response
       if (data.success) {
         toast.success(data.message)
-        // fetchCategory()
         setOpenDelete(false)
       }
     } catch (error) {
