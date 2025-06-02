@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IoClose } from "react-icons/io5";
 import uploadImage from '../utils/uploadImage';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const UploadSubCategoryModal = ({ close }) => {
     const [loading, setLoading] = useState(false)
@@ -10,6 +11,10 @@ const UploadSubCategoryModal = ({ close }) => {
         image: "",
         category: []
     })
+
+    const allCategory = useSelector(state => state.products.allCategory)
+    console.log("sub category data", allCategory);
+
     // onchange handler
     const handleChange = (event) => {
         const { name, value } = event.target

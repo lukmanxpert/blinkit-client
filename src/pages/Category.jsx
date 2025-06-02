@@ -20,12 +20,12 @@ const Category = () => {
     _id: ""
   })
   // fetch category
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [categoryData, setCategoryData] = useState([])
-  const categories = useSelector(state => state.products.allCategory)
+  const allCategory = useSelector(state => state.products.allCategory)
   useEffect(() => {
-    setCategoryData(categories)
-  }, [categories])
+    setCategoryData(allCategory)
+  }, [allCategory])
   // handle delete function
   const handleDeleteProduct = async () => {
     try {
@@ -49,7 +49,7 @@ const Category = () => {
         <button onClick={() => setOpenUploadCategory(true)} className='border border-primary-100 px-3 py-1 rounded text-sm hover:bg-primary-100 hover:text-white transition cursor-pointer'>Add Category</button>
       </div>
       {
-        !categoryData[0] && !loading && (
+        !categoryData[0] && (
           <NoData />
         )
       }
@@ -72,11 +72,11 @@ const Category = () => {
           })
         }
       </div>
-      {
+      {/* {
         loading && (
           <Loading />
         )
-      }
+      } */}
       {
         openUploadCategory && <UploadCategoryModal fetchCategory={fetchCategory} close={() => setOpenUploadCategory(false)} />
       }
