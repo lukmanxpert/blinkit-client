@@ -37,7 +37,7 @@ const UploadSubCategoryModal = ({ close }) => {
         setLoading(false)
     }
     // const validateValue = Object.values(subCategoryData).every(el => el)
-    console.log(subCategoryData);
+    console.log("subcategory data", subCategoryData);
     return (
         <section className='fixed top-0 left-0 right-0 bottom-0 bg-neutral-700/60 z-50 flex justify-center items-center'>
             <div className='bg-white w-full max-w-5xl p-4'>
@@ -61,6 +61,19 @@ const UploadSubCategoryModal = ({ close }) => {
                                 <button className='border-2 cursor-pointer border-primary-100 px-3 py-1 rounded hover:bg-primary-100 transition' type='button'><label htmlFor="image" className='font-semibold cursor-pointer'>{loading ? "Uploading" : subCategoryData.image ? "Change Image" : "Upload Image"}</label></button>
                                 <input className='hidden' onChange={handleUploadSubCategoryImage} type="file" name='image' id='image' />
                             </div>
+                        </div>
+                        <div className='mt-4'>
+                            <select className='w-full p-2 bg-transparent outline-none border border-primary-100 rounded cursor-pointer' name="category" id="category" value={subCategoryData.category[0]} onChange={(e) => {
+                                const value = e.target.value;
+                                setSubCategoryData((prev) => ({ ...prev, category: [...prev.category, value] }));
+                            }}>
+                                <option value="" disabled>Select Category</option>
+                                {
+                                    allCategory.map((category, index) => (
+                                        <option key={index} value={category._id}>{category?.name}</option>
+                                    ))
+                                }
+                            </select>
                         </div>
                     </form>
                 </div>
