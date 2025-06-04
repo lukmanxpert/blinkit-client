@@ -13,7 +13,6 @@ const UploadSubCategoryModal = ({ close }) => {
     })
 
     const allCategory = useSelector(state => state.products.allCategory)
-    console.log("sub category data", allCategory);
 
     // onchange handler
     const handleChange = (event) => {
@@ -37,7 +36,7 @@ const UploadSubCategoryModal = ({ close }) => {
         setLoading(false)
     }
     // const validateValue = Object.values(subCategoryData).every(el => el)
-    console.log("subcategory data", subCategoryData);
+    console.log("Sub Category Data: ", subCategoryData);
     return (
         <section className='fixed top-0 left-0 right-0 bottom-0 bg-neutral-700/60 z-50 flex justify-center items-center'>
             <div className='bg-white w-full max-w-5xl p-4'>
@@ -63,15 +62,31 @@ const UploadSubCategoryModal = ({ close }) => {
                             </div>
                         </div>
                         <div className='mt-4'>
-                            <select className='w-full p-2 bg-transparent outline-none border border-primary-100 rounded cursor-pointer' name="category" id="category" value={subCategoryData.category[0]} onChange={(e) => {
-                                const value = e.target.value;
-                                setSubCategoryData((prev) => ({ ...prev, category: [...prev.category, value] }));
-                            }}>
+                            {/* <select className='w-full p-2 bg-transparent outline-none border border-primary-100 rounded cursor-pointer' name="category" id="category"
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    const categoryDetails = allCategory.find(el => el._id == value)
+                                    setSubCategoryData((prev) => ({ ...prev, category: [...prev.category, categoryDetails] }));
+                                }}>
                                 <option value="" disabled>Select Category</option>
                                 {
                                     allCategory.map((category, index) => (
-                                        <option key={index} value={category._id}>{category?.name}</option>
+                                        <option key={index} value={category}>{category?.name}</option>
                                     ))
+                                }
+                            </select> */}
+                            <select className='w-full p-2 bg-transparent outline-none border'
+                                onChange={(e) => {
+                                    const value = e.target.value
+                                    const categoryDetails = allCategory.find(el => el._id == value)
+                                    setSubCategoryData((prev) => ({ ...prev, category: [...prev.category, categoryDetails] }));
+                                }}>
+                                <option value={""}>Select Category</option>{
+                                    allCategory.map((category) => {
+                                        return (
+                                            <option value={category?._id} key={category._id + "subcategory"}>{category?.name}</option>
+                                        )
+                                    })
                                 }
                             </select>
                         </div>
