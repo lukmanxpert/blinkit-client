@@ -3,6 +3,7 @@ import { IoClose } from "react-icons/io5";
 import uploadImage from '../utils/uploadImage';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import { MdDeleteForever } from "react-icons/md";
 
 const UploadSubCategoryModal = ({ close }) => {
     const [loading, setLoading] = useState(false)
@@ -61,27 +62,38 @@ const UploadSubCategoryModal = ({ close }) => {
                                 <input className='hidden' onChange={handleUploadSubCategoryImage} type="file" name='image' id='image' />
                             </div>
                         </div>
+                        <div>
+                            {
+                                subCategoryData.category.length > 0 ? (
+                                    <div className='mt-4'>
+                                        <h2 className='font-semibold'>Selected Categories:</h2>
+                                        <ul className='list-disc pl-5'>
+                                            {
+                                                subCategoryData.category.map((category) => (
+                                                    <div className='flex items-center gap-2' key={category._id}>
+                                                        <li key={category._id} className='text-primary-100'>{category.name}</li>
+                                                        <button type='button' className='text-red-500 cursor-pointer hover:scale-125 transition' onClick={() => {
+                                                            setSubCategoryData((prev) => ({
+                                                                ...prev,
+                                                                category: prev.category.filter(el => el._id !== category._id)
+                                                            }));
+                                                        }}><MdDeleteForever size={20} /></button>
+                                                    </div>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+                                ) : <p className='text-neutral-500 mt-4'>No categories selected</p>
+                            }
+                        </div>
                         <div className='mt-4'>
-                            {/* <select className='w-full p-2 bg-transparent outline-none border border-primary-100 rounded cursor-pointer' name="category" id="category"
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    const categoryDetails = allCategory.find(el => el._id == value)
-                                    setSubCategoryData((prev) => ({ ...prev, category: [...prev.category, categoryDetails] }));
-                                }}>
-                                <option value="" disabled>Select Category</option>
-                                {
-                                    allCategory.map((category, index) => (
-                                        <option key={index} value={category}>{category?.name}</option>
-                                    ))
-                                }
-                            </select> */}
-                            <select className='w-full p-2 bg-transparent outline-none border'
+                            <select className='w-full p-2 bg-transparent outline-none border border-primary-100 rounded cursor-pointer'
                                 onChange={(e) => {
                                     const value = e.target.value
                                     const categoryDetails = allCategory.find(el => el._id == value)
                                     setSubCategoryData((prev) => ({ ...prev, category: [...prev.category, categoryDetails] }));
                                 }}>
-                                <option value={""}>Select Category</option>{
+                                <option disabled selected value={""}>Select Category</option>{
                                     allCategory.map((category) => {
                                         return (
                                             <option value={category?._id} key={category._id + "subcategory"}>{category?.name}</option>
