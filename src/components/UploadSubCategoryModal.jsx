@@ -14,7 +14,7 @@ const UploadSubCategoryModal = ({ close }) => {
     })
 
     const allCategory = useSelector(state => state.products.allCategory)
-
+    console.log("all category", allCategory);
     // onchange handler
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -36,6 +36,9 @@ const UploadSubCategoryModal = ({ close }) => {
         setSubCategoryData(prevData => ({ ...prevData, image: imageResponse.data.url }))
         setLoading(false)
     }
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+    }
     // const validateValue = Object.values(subCategoryData).every(el => el)
     console.log("Sub Category Data: ", subCategoryData);
     return (
@@ -46,7 +49,7 @@ const UploadSubCategoryModal = ({ close }) => {
                     <button className='hover:scale-125 cursor-pointer transition' title='close the modal' onClick={close}><IoClose size={25} /></button>
                 </div>
                 <div className='mt-4'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='grid'>
                             <label htmlFor="name" className='font-semibold'>Name:</label>
                             <input className='border px-3 py-1 rounded outline-none focus-within:border-primary-100' value={subCategoryData.name} onChange={handleChange} type="text" name='name' id='name' placeholder='Enter the sub category name' />
@@ -101,6 +104,9 @@ const UploadSubCategoryModal = ({ close }) => {
                                     })
                                 }
                             </select>
+                        </div>
+                        <div className='flex justify-center items-center'>
+                            <button className={`py-2 px-3 my-2 cursor-pointer font-semibold rounded w-full ${subCategoryData.name && subCategoryData.image && subCategoryData.category[0] ? "bg-primary-100" : "bg-gray-500"}`}>Submit</button>
                         </div>
                     </form>
                 </div>
