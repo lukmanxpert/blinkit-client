@@ -4,6 +4,9 @@ import uploadImage from '../utils/uploadImage';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { MdDeleteForever } from "react-icons/md";
+import Axios from '../utils/Axios';
+import summaryApi from '../common/summaryApi';
+import axiosToastError from '../utils/AxiosToastError';
 
 const UploadSubCategoryModal = ({ close }) => {
     const [loading, setLoading] = useState(false)
@@ -38,6 +41,21 @@ const UploadSubCategoryModal = ({ close }) => {
     }
     const handleSubmit = async (event) => {
         event.preventDefault()
+        try {
+            const response = await Axios({
+                ...summaryApi.addSubCategory,
+                data: subCategoryData
+            })
+            const { data: responseData } = response
+            if (responseData.success) {
+                toast.success(responseData.message)
+                if (close) {
+                    close()
+                }
+            }
+        } catch (error) {
+            axiosToastError(error)
+        }
     }
     // const validateValue = Object.values(subCategoryData).every(el => el)
     console.log("Sub Category Data: ", subCategoryData);
