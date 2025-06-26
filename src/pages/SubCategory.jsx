@@ -6,6 +6,8 @@ import summaryApi from '../common/summaryApi'
 import DisplayTable from '../components/DisplayTable'
 import { createColumnHelper } from "@tanstack/react-table"
 import ViewImages from '../components/ViewImages'
+import { FaPencilAlt } from "react-icons/fa";
+import { AiFillDelete } from "react-icons/ai";
 
 const SubCategory = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false)
@@ -57,6 +59,19 @@ const SubCategory = () => {
         </>
       }
     }),
+    columnHelper.accessor('', {
+      header: "Action",
+      cell: ({ row }) => {
+        return <div className='flex justify-evenly items-center'>
+          <button title='edit' className='cursor-pointer hover:scale-125 transition hover:text-primary-100'>
+            <FaPencilAlt size={20} />
+          </button>
+          <button title='delete' className='cursor-pointer hover:scale-125 transition hover:text-red-600'>
+            <AiFillDelete size={20} />
+          </button>
+        </div>
+      }
+    })
   ]
   console.log("image url", imageUrl);
   return (
