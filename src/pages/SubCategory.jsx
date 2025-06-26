@@ -92,7 +92,7 @@ const SubCategory = () => {
     columnHelper.accessor('', {
       header: "Action",
       cell: ({ row }) => {
-        return <div className='flex justify-evenly items-center'>
+        return <div className='flex justify-evenly gap-2 items-center'>
           <button onClick={() => {
             setOpenEdit(true)
             setEditData(row.original)
@@ -117,7 +117,7 @@ const SubCategory = () => {
           setOpenAddSubCategory(true)
         }} className='border-2 font-semibold border-primary-100 px-3 py-1 rounded text-sm hover:bg-primary-100 hover:text-white transition cursor-pointer'>Add Sub Category</button>
       </div>
-      <div>
+      <div className='overflow-auto w-full max-w-[95vw]'>
         <DisplayTable data={subCategoryData} column={column} />
       </div>
       {
