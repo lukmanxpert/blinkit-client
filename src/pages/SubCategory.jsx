@@ -46,7 +46,16 @@ const SubCategory = () => {
       }
     }),
     columnHelper.accessor('category', {
-      header: "Category"
+      header: "Category",
+      cell: ({ row }) => {
+        return <>
+          {
+            row.original.category.map((c, index) => {
+              return <p key={index} className='shadow-md px-1 inline-block '>{c.name}</p>
+            })
+          }
+        </>
+      }
     }),
   ]
   console.log("image url", imageUrl);
