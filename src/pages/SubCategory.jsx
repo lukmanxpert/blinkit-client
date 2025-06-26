@@ -5,11 +5,13 @@ import Axios from '../utils/Axios'
 import summaryApi from '../common/summaryApi'
 import DisplayTable from '../components/DisplayTable'
 import { createColumnHelper } from "@tanstack/react-table"
+import ViewImages from '../components/ViewImages'
 
 const SubCategory = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false)
   const [subCategoryData, setSubCategoryData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [imageUrl, setImageUrl] = useState("")
   const columnHelper = createColumnHelper()
   const fetchSubCategory = async () => {
     try {
@@ -38,8 +40,8 @@ const SubCategory = () => {
     columnHelper.accessor('image', {
       header: "Image",
       cell: ({ row }) => {
-        return <div className='flex justify-center items-center'>
-          <img src={row.original.image} alt={row.original.name} className='w-8 h-8' />
+        return <div className='flex justify-center items-center cursor-pointer'>
+          <img onClick={() => setImageUrl(row.original.image)} src={row.original.image} alt={row.original.name} className='w-8 h-8' />
         </div>
       }
     }),
@@ -47,7 +49,7 @@ const SubCategory = () => {
       header: "Category"
     }),
   ]
-  console.log("sub category", subCategoryData);
+  console.log("image url", imageUrl);
   return (
     <section>
       <div className='flex justify-between shadow p-2'>
@@ -63,6 +65,8 @@ const SubCategory = () => {
         openAddSubCategory && (
           <UploadSubCategoryModal close={() => setOpenAddSubCategory(false)} />
         )
+      }{
+        imageUrl && <ViewImages img={imageUrl} close={() => setImageUrl("")} />
       }
     </section>
   )

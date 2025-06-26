@@ -57,11 +57,9 @@ const UploadSubCategoryModal = ({ close }) => {
             axiosToastError(error)
         }
     }
-    // const validateValue = Object.values(subCategoryData).every(el => el)
-    console.log("Sub Category Data: ", subCategoryData);
     return (
         <section className='fixed top-0 left-0 right-0 bottom-0 bg-neutral-700/60 z-50 flex justify-center items-center'>
-            <div className='bg-white w-full max-w-5xl p-4'>
+            <div className='bg-white w-full max-w-5xl p-4 m-4'>
                 <div className='flex justify-between gap-4'>
                     <h1 className='font-semibold text-xl'>Add Sub Category</h1>
                     <button className='hover:scale-125 cursor-pointer transition' title='close the modal' onClick={close}><IoClose size={25} /></button>
