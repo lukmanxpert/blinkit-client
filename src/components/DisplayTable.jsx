@@ -11,7 +11,6 @@ const DisplayTable = ({ data, column }) => {
         columns: column,
         getCoreRowModel: getCoreRowModel(),
     })
-    console.log("data from table", data);
     return (
         <div className="p-2">
             <table className='w-full'>

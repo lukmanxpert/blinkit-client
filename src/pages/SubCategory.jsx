@@ -8,12 +8,17 @@ import { createColumnHelper } from "@tanstack/react-table"
 import ViewImages from '../components/ViewImages'
 import { FaPencilAlt } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
+import EditSubCategory from '../components/EditSubCategory'
 
 const SubCategory = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false)
   const [subCategoryData, setSubCategoryData] = useState([])
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
+  const [openEdit, setOpenEdit] = useState(false)
+  const [editData, setEditData] = useState({
+    _id: ""
+  })
   const columnHelper = createColumnHelper()
   const fetchSubCategory = async () => {
     try {
@@ -63,7 +68,10 @@ const SubCategory = () => {
       header: "Action",
       cell: ({ row }) => {
         return <div className='flex justify-evenly items-center'>
-          <button title='edit' className='cursor-pointer hover:scale-125 transition hover:text-primary-100'>
+          <button onClick={() => {
+            setOpenEdit(true)
+            setEditData(row.original)
+          }} title='edit' className='cursor-pointer hover:scale-125 transition hover:text-primary-100'>
             <FaPencilAlt size={20} />
           </button>
           <button title='delete' className='cursor-pointer hover:scale-125 transition hover:text-red-600'>
@@ -73,7 +81,6 @@ const SubCategory = () => {
       }
     })
   ]
-  console.log("image url", imageUrl);
   return (
     <section>
       <div className='flex justify-between shadow p-2'>
@@ -89,8 +96,12 @@ const SubCategory = () => {
         openAddSubCategory && (
           <UploadSubCategoryModal close={() => setOpenAddSubCategory(false)} />
         )
-      }{
+      }
+      {
         imageUrl && <ViewImages img={imageUrl} close={() => setImageUrl("")} />
+      }
+      {
+        openEdit && <EditSubCategory data={editData} close={() => setOpenEdit(false)} fetch={fetchSubCategory} />
       }
     </section>
   )
