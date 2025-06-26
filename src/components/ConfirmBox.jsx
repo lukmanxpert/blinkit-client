@@ -7,7 +7,7 @@ const ConfirmBox = ({ confirm, cancel, close }) => {
             <div className='max-w-md w-full bg-white p-4 rounded'>
                 <div className='flex justify-between items-center gap-4'>
                     <h1 className='font-semibold'>Permanent Delete</h1>
-                    <IoClose onClick={close} className='hover:scale-125 transition' title='close the modal' size={25} />
+                    <IoClose onClick={close} className='hover:scale-125 cursor-pointer transition' title='close the modal' size={25} />
                 </div>
                 <div className='mt-4'>
                     <p>Are you sure to permanent delete?</p>

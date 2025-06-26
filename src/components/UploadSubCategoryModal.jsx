@@ -8,7 +8,7 @@ import Axios from '../utils/Axios';
 import summaryApi from '../common/summaryApi';
 import axiosToastError from '../utils/AxiosToastError';
 
-const UploadSubCategoryModal = ({ close }) => {
+const UploadSubCategoryModal = ({ close, refetch }) => {
     const [loading, setLoading] = useState(false)
     const [subCategoryData, setSubCategoryData] = useState({
         name: "",
@@ -17,7 +17,6 @@ const UploadSubCategoryModal = ({ close }) => {
     })
 
     const allCategory = useSelector(state => state.products.allCategory)
-    console.log("all category", allCategory);
     // onchange handler
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -49,6 +48,9 @@ const UploadSubCategoryModal = ({ close }) => {
             const { data: responseData } = response
             if (responseData.success) {
                 toast.success(responseData.message)
+                if (refetch) {
+                    refetch()
+                }
                 if (close) {
                     close()
                 }

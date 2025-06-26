@@ -9,6 +9,8 @@ import ViewImages from '../components/ViewImages'
 import { FaPencilAlt } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import EditSubCategory from '../components/EditSubCategory'
+import toast from 'react-hot-toast'
+import ConfirmBox from '../components/ConfirmBox'
 
 const SubCategory = () => {
   const [openAddSubCategory, setOpenAddSubCategory] = useState(false)
@@ -16,6 +18,8 @@ const SubCategory = () => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState("")
   const [openEdit, setOpenEdit] = useState(false)
+  const [openDelete, setOpenDelete] = useState(false)
+  const [categoryDeleteID, setCategoryDeleteID] = useState("")
   const [editData, setEditData] = useState({
     _id: ""
   })
@@ -34,6 +38,27 @@ const SubCategory = () => {
       axiosToastError(error)
     } finally {
       setLoading(false)
+    }
+  }
+  // handle delete
+  const handleDelete = async (_id) => {
+    try {
+      const deleteResponse = await Axios({
+        ...summaryApi.deleteSubCategory,
+        data: {
+          id: _id
+        }
+      })
+      if (deleteResponse.data.success) {
+        toast.success(deleteResponse.data.message)
+        setCategoryDeleteID("")
+        setOpenDelete(false)
+        fetchSubCategory()
+      } else {
+        toast.error("Something went wrong.")
+      }
+    } catch (error) {
+      return axiosToastError(error)
     }
   }
   useEffect(() => {
@@ -74,7 +99,10 @@ const SubCategory = () => {
           }} title='edit' className='cursor-pointer hover:scale-125 transition hover:text-primary-100'>
             <FaPencilAlt size={20} />
           </button>
-          <button title='delete' className='cursor-pointer hover:scale-125 transition hover:text-red-600'>
+          <button onClick={() => {
+            setCategoryDeleteID(row.original._id)
+            setOpenDelete(true)
+          }} title='delete' className='cursor-pointer hover:scale-125 transition hover:text-red-600'>
             <AiFillDelete size={20} />
           </button>
         </div>
@@ -94,7 +122,7 @@ const SubCategory = () => {
       </div>
       {
         openAddSubCategory && (
-          <UploadSubCategoryModal close={() => setOpenAddSubCategory(false)} />
+          <UploadSubCategoryModal close={() => setOpenAddSubCategory(false)} refetch={fetchSubCategory} />
         )
       }
       {
@@ -102,6 +130,9 @@ const SubCategory = () => {
       }
       {
         openEdit && <EditSubCategory data={editData} close={() => setOpenEdit(false)} fetch={fetchSubCategory} />
+      }
+      {
+        openDelete && <ConfirmBox cancel={() => setOpenDelete(false)} close={() => setOpenDelete(false)} confirm={() => handleDelete(categoryDeleteID)} />
       }
     </section>
   )

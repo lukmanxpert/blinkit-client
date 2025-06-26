@@ -78,11 +78,11 @@ const Category = () => {
         )
       } */}
       {
-        openUploadCategory && <UploadCategoryModal fetchCategory={fetchCategory} close={() => setOpenUploadCategory(false)} />
+        openUploadCategory && <UploadCategoryModal close={() => setOpenUploadCategory(false)} />
       }
       {
         openEdit && (
-          <EditCategory editData={editData} close={() => setOpenEdit(false)} fetchCategory={fetchCategory} />
+          <EditCategory editData={editData} close={() => setOpenEdit(false)} />
         )
       }
       {
