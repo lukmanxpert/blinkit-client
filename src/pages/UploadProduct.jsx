@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { FaCloudUploadAlt } from "react-icons/fa";
+import uploadImage from "../utils/uploadImage";
+import toast from "react-hot-toast";
 
 const UploadProduct = () => {
+  const [loading, setLoading] = useState(false)
   const [data, setData] = useState({
     name: "",
     image: [],
@@ -25,7 +28,15 @@ const UploadProduct = () => {
     if (!file) {
       return
     }
-
+    setLoading(true)
+    const response = await uploadImage(file)
+    const { data: imageResponse } = response
+    if (!imageResponse?.data?.url) {
+      setLoading(false)
+      return toast.error("Something went wrong, Try Again")
+    }
+    setData(prevData => ({ ...prevData, image: [...prevData.image, imageResponse.data.url] }))
+    setLoading(false)
   }
   // submit handler
   const handleSubmit = async (event) => {
