@@ -5,10 +5,14 @@ import toast from "react-hot-toast";
 import Loading from "../components/Loading";
 import ViewImages from "../components/ViewImages";
 import { MdDelete } from "react-icons/md";
+import { useSelector } from "react-redux"
+import { IoClose } from "react-icons/io5";
 
 const UploadProduct = () => {
   const [imageLoading, setImageLoading] = useState(false)
   const [openImageUrl, setOpenImageUrl] = useState("")
+  const allCategory = useSelector(state => state.products.allCategory)
+  const [selectCategory, setSelectCategory] = useState("")
   const [data, setData] = useState({
     name: "",
     image: [],
@@ -50,6 +54,10 @@ const UploadProduct = () => {
     data.image.splice(index, 1)
     setData((prev) => ({ ...prev }))
   }
+  const handleRemoveCategory = (index) => {
+    data.category.splice(index, 1)
+    setData((prev) => ({ ...prev }))
+  }
   return (
     <section>
       <div className='flex justify-between shadow p-2'>
@@ -59,7 +67,7 @@ const UploadProduct = () => {
         <form onSubmit={handleSubmit} className="grid gap-2">
           {/* name */}
           <div className="grid gap-1">
-            <label htmlFor="name" className="font-semibold">Name</label>
+            <label htmlFor="name">Name</label>
             <input type="text"
               name="name"
               id="name"
@@ -72,7 +80,7 @@ const UploadProduct = () => {
           </div>
           {/* description */}
           <div className="grid gap-1">
-            <label htmlFor="description" className="font-semibold">Description</label>
+            <label htmlFor="description">Description</label>
             <textarea type="text"
               name="description"
               id="description"
@@ -114,6 +122,41 @@ const UploadProduct = () => {
             {
               openImageUrl && <ViewImages img={openImageUrl} close={() => setOpenImageUrl("")} />
             }
+          </div>
+          {/* category */}
+          <div className="grid gap-1">
+            <label htmlFor="category">Category</label>
+            <div>
+              <select name="category" id="category" value={selectCategory} className="bg-blue-50 border w-full p-2 rounded"
+                onChange={(e) => {
+                  const value = e.target.value
+                  const category = allCategory.find(el => el._id === value)
+                  setData((prev) => ({ ...prev, category: [...prev.category, category] }))
+                  setSelectCategory("")
+                }}
+              >
+                <option value="" selected disabled>Select Category</option>
+                {
+                  allCategory.map((c, index) => (
+                    <option key={index + c._id} value={c._id}>{c.name}</option>
+                  ))
+                }
+              </select>
+              <div className="flex flex-wrap gap-3">
+                {
+                  data.category.map((c, index) => {
+                    return (
+                      <div key={index + "categories"} className="text-sm flex justify-start items-center gap-1 bg-blue-50 mt-2 rounded shadow">
+                        <p>{c.name}</p>
+                        <button onClick={() => handleRemoveCategory(index)} type="button" title="delete" className="cursor-pointer hover:text-red-500 transition">
+                          <IoClose size={20} />
+                        </button>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
           </div>
         </form>
       </div>
