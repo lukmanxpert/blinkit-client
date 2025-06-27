@@ -85,11 +85,19 @@ const UploadProduct = () => {
                 <p>Upload Image</p>
               </div>
               <input onChange={handleUploadImage} accept="image/*" className="hidden" type="file" name="image" id="image" />
-              {/* display upload image */}
-              <div>
-
-              </div>
             </label>
+            {/* display upload image */}
+            <div>
+              {
+                data.image.map((img, index) => {
+                  return (
+                    <div key={index} className="h-20 w-20 min-w-20 bg-blue-50 border">
+                      <img src={img} alt="productImage" className="w-full h-full object-scale-down" />
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
         </form>
       </div>
