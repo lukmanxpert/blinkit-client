@@ -2,9 +2,13 @@ import { useState } from "react"
 import { FaCloudUploadAlt } from "react-icons/fa";
 import uploadImage from "../utils/uploadImage";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading";
+import ViewImages from "../components/ViewImages";
+import { MdDelete } from "react-icons/md";
 
 const UploadProduct = () => {
-  const [loading, setLoading] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false)
+  const [openImageUrl, setOpenImageUrl] = useState("")
   const [data, setData] = useState({
     name: "",
     image: [],
@@ -28,19 +32,23 @@ const UploadProduct = () => {
     if (!file) {
       return
     }
-    setLoading(true)
+    setImageLoading(true)
     const response = await uploadImage(file)
     const { data: imageResponse } = response
     if (!imageResponse?.data?.url) {
-      setLoading(false)
+      setImageLoading(false)
       return toast.error("Something went wrong, Try Again")
     }
     setData(prevData => ({ ...prevData, image: [...prevData.image, imageResponse.data.url] }))
-    setLoading(false)
+    setImageLoading(false)
   }
   // submit handler
   const handleSubmit = async (event) => {
     event.preventDefault()
+  }
+  const handleDelete = (index) => {
+    data.image.splice(index, 1)
+    setData((prev) => ({ ...prev }))
   }
   return (
     <section>
@@ -81,23 +89,31 @@ const UploadProduct = () => {
             <p>Image</p>
             <label htmlFor="image" className="bg-blue-50 h-24 border-2 rounded flex justify-center items-center cursor-pointer">
               <div className="text-center flex flex-col justify-center items-center">
-                <FaCloudUploadAlt size={25} />
-                <p>Upload Image</p>
+                {
+                  imageLoading ? <Loading /> : <>
+                    <FaCloudUploadAlt size={25} />
+                    <p>Upload Image</p>
+                  </>
+                }
               </div>
               <input onChange={handleUploadImage} accept="image/*" className="hidden" type="file" name="image" id="image" />
             </label>
             {/* display upload image */}
-            <div>
+            <div className="flex flex-wrap gap-2 my-4 group">
               {
                 data.image.map((img, index) => {
                   return (
-                    <div key={index} className="h-20 w-20 min-w-20 bg-blue-50 border">
-                      <img src={img} alt="productImage" className="w-full h-full object-scale-down" />
+                    <div key={index} className="h-20 w-20 min-w-20 bg-blue-50 border relative">
+                      <img onClick={() => setOpenImageUrl(img)} src={img} alt="productImage" className="w-full h-full object-scale-down cursor-pointer" />
+                      <MdDelete onClick={() => handleDelete(index)} className="absolute bottom-0 right-0 hidden group-hover:inline-block cursor-pointer bg-red-600 hover:bg-red-700 transition-all rounded text-white p-1" size={25} />
                     </div>
                   )
                 })
               }
             </div>
+            {
+              openImageUrl && <ViewImages img={openImageUrl} close={() => setOpenImageUrl("")} />
+            }
           </div>
         </form>
       </div>
