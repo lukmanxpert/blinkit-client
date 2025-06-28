@@ -7,6 +7,7 @@ import ViewImages from "../components/ViewImages";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux"
 import { IoClose } from "react-icons/io5";
+import AddFieldComponent from "../components/AddFieldComponent";
 
 const UploadProduct = () => {
   const [imageLoading, setImageLoading] = useState(false)
@@ -15,6 +16,8 @@ const UploadProduct = () => {
   const allSubCategory = useSelector(state => state.products.allSubCategory)
   const [selectCategory, setSelectCategory] = useState("")
   const [selectSubCategory, setSelectSubCategory] = useState("")
+  const [openAddField, setOpenAddField] = useState(false)
+  const [fieldName, setFieldName] = useState("")
   const [data, setData] = useState({
     name: "",
     image: [],
@@ -64,6 +67,12 @@ const UploadProduct = () => {
     data.subCategory.splice(index, 1)
     setData((prev) => ({ ...prev }))
   })
+  // handle add field
+  const handleAddField = () => {
+    setData((prev) => ({ ...prev, more_details: { ...prev.more_details, [fieldName]: "" } }))
+    setFieldName("")
+    setOpenAddField(false)
+  }
   return (
     <section>
       <div className='flex justify-between shadow p-2'>
@@ -110,7 +119,7 @@ const UploadProduct = () => {
                   </>
                 }
               </div>
-              <input onChange={handleUploadImage} accept="image/*" className="hidden" type="file" name="image" id="image" />
+              <input onChange={handleUploadImage} required accept="image/*" className="hidden" type="file" name="image" id="image" />
             </label>
             {/* display upload image */}
             <div className="flex flex-wrap gap-2 my-4 group">
@@ -133,7 +142,7 @@ const UploadProduct = () => {
           <div className="grid gap-1">
             <label htmlFor="category">Category</label>
             <div>
-              <select name="category" id="category" value={selectCategory} className="bg-blue-50 border w-full p-2 rounded"
+              <select name="category" required id="category" value={selectCategory} className="bg-blue-50 border w-full p-2 rounded"
                 onChange={(e) => {
                   const value = e.target.value
                   const category = allCategory.find(el => el._id === value)
@@ -168,7 +177,7 @@ const UploadProduct = () => {
           <div className="grid gap-1">
             <label htmlFor="category">Sub Category</label>
             <div>
-              <select name="category" id="category" value={selectSubCategory} className="bg-blue-50 border w-full p-2 rounded"
+              <select name="category" required id="category" value={selectSubCategory} className="bg-blue-50 border w-full p-2 rounded"
                 onChange={(e) => {
                   const value = e.target.value
                   const subCategory = allSubCategory.find(el => el._id === value)
@@ -251,7 +260,46 @@ const UploadProduct = () => {
               className="bg-blue-50 p-2 outline-none border-2 focus-within:border-primary-100 rounded"
             />
           </div>
+          {/* more field */}
+          <div>
+            {
+              Object?.keys(data?.more_details).map((key, index) => {
+                return (
+                  <div className="grid gap-1">
+                    <label htmlFor={key}>{key}</label>
+                    <input type="text"
+                      name="discount"
+                      id={key}
+                      placeholder="Enter Product Discount"
+                      value={data.more_details[key]}
+                      onChange={(e) => {
+                        const value = e.target.value
+                        setData((prev) => {
+                          return {
+                            ...prev, more_details: {
+                              ...prev.more_details, [key]: value
+                            }
+                          }
+                        })
+                      }}
+                      required
+                      className="bg-blue-50 p-2 outline-none border-2 focus-within:border-primary-100 rounded"
+                    />
+                  </div>
+                )
+              })
+            }
+          </div>
+          <div onClick={() => setOpenAddField(true)} className="bg-white shadow hover:bg-primary-100 w-24 text-center rounded hover:shadow shadow-primary-100 py-1 px-2 transition cursor-pointer font-semibold">
+            Add Field
+          </div>
+          <div>
+            <button className="bg-primary-100 hover:bg-primary-200 w-full py-2 px-3 font-semibold rounded cursor-pointer my-2">Submit</button>
+          </div>
         </form>
+        {
+          openAddField && <AddFieldComponent value={fieldName} onchange={(e) => setFieldName(e.target.value)} submit={handleAddField} close={() => setOpenAddField(false)} />
+        }
       </div>
     </section>
   )
