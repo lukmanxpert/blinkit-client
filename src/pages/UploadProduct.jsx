@@ -199,7 +199,58 @@ const UploadProduct = () => {
               </div>
             </div>
           </div>
-          {/*  */}
+          {/* unit */}
+          <div className="grid gap-1">
+            <label htmlFor="unit">Unit</label>
+            <input type="text"
+              name="unit"
+              id="unit"
+              placeholder="Enter Product Unit"
+              value={data.unit}
+              onChange={handleChange}
+              required
+              className="bg-blue-50 p-2 outline-none border-2 focus-within:border-primary-100 rounded"
+            />
+          </div>
+          {/* stock */}
+          <div className="grid gap-1">
+            <label htmlFor="stock">Number of Stock</label>
+            <input type="number"
+              name="stock"
+              id="stock"
+              placeholder="Enter Product Stock"
+              value={data.stock}
+              onChange={handleChange}
+              required
+              className="bg-blue-50 p-2 outline-none border-2 focus-within:border-primary-100 rounded"
+            />
+          </div>
+          {/* price */}
+          <div className="grid gap-1">
+            <label htmlFor="price">Price</label>
+            <input type="number"
+              name="price"
+              id="price"
+              placeholder="Enter Product Price"
+              value={data.price}
+              onChange={handleChange}
+              required
+              className="bg-blue-50 p-2 outline-none border-2 focus-within:border-primary-100 rounded"
+            />
+          </div>
+          {/* discount */}
+          <div className="grid gap-1">
+            <label htmlFor="discount">Discount</label>
+            <input type="number"
+              name="discount"
+              id="discount"
+              placeholder="Enter Product Discount"
+              value={data.discount}
+              onChange={handleChange}
+              required
+              className="bg-blue-50 p-2 outline-none border-2 focus-within:border-primary-100 rounded"
+            />
+          </div>
         </form>
       </div>
     </section>
