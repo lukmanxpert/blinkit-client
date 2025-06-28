@@ -9,7 +9,7 @@ import { setUserDetails } from './store/userSlice'
 import axiosToastError from './utils/AxiosToastError'
 import summaryApi from './common/summaryApi'
 import Axios from './utils/Axios'
-import { setAllCategory } from './store/productsSlice'
+import { setAllCategory, setAllSubCategory } from './store/productsSlice'
 
 function App() {
 
@@ -35,9 +35,25 @@ function App() {
     }
   }
 
+  // fetch category
+  const fetchSubCategory = async () => {
+    try {
+      const response = await Axios({
+        ...summaryApi.getSubCategory
+      })
+      const { data: responseData } = response
+      if (responseData.success) {
+        dispatch(setAllSubCategory(responseData.data))
+      }
+    } catch (error) {
+      axiosToastError(error)
+    }
+  }
+
   useEffect(() => {
     fetchUser()
     fetchCategory()
+    fetchSubCategory()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

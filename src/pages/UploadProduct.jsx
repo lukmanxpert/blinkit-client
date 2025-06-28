@@ -12,7 +12,9 @@ const UploadProduct = () => {
   const [imageLoading, setImageLoading] = useState(false)
   const [openImageUrl, setOpenImageUrl] = useState("")
   const allCategory = useSelector(state => state.products.allCategory)
+  const allSubCategory = useSelector(state => state.products.allSubCategory)
   const [selectCategory, setSelectCategory] = useState("")
+  const [selectSubCategory, setSelectSubCategory] = useState("")
   const [data, setData] = useState({
     name: "",
     image: [],
@@ -58,6 +60,10 @@ const UploadProduct = () => {
     data.category.splice(index, 1)
     setData((prev) => ({ ...prev }))
   }
+  const handleRemoveSubCategory = (index => {
+    data.subCategory.splice(index, 1)
+    setData((prev) => ({ ...prev }))
+  })
   return (
     <section>
       <div className='flex justify-between shadow p-2'>
@@ -158,6 +164,42 @@ const UploadProduct = () => {
               </div>
             </div>
           </div>
+          {/* subCategory */}
+          <div className="grid gap-1">
+            <label htmlFor="category">Sub Category</label>
+            <div>
+              <select name="category" id="category" value={selectSubCategory} className="bg-blue-50 border w-full p-2 rounded"
+                onChange={(e) => {
+                  const value = e.target.value
+                  const subCategory = allSubCategory.find(el => el._id === value)
+                  setData((prev) => ({ ...prev, subCategory: [...prev.subCategory, subCategory] }))
+                  setSelectSubCategory("")
+                }}
+              >
+                <option value="" selected disabled>Select Sub Category</option>
+                {
+                  allSubCategory.map((c, index) => (
+                    <option key={index + c._id} value={c._id}>{c.name}</option>
+                  ))
+                }
+              </select>
+              <div className="flex flex-wrap gap-3">
+                {
+                  data.subCategory.map((c, index) => {
+                    return (
+                      <div key={index + "categories"} className="text-sm flex justify-start items-center gap-1 bg-blue-50 mt-2 rounded shadow">
+                        <p>{c.name}</p>
+                        <button onClick={() => handleRemoveSubCategory(index)} type="button" title="delete" className="cursor-pointer hover:text-red-500 transition">
+                          <IoClose size={20} />
+                        </button>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+          </div>
+          {/*  */}
         </form>
       </div>
     </section>
