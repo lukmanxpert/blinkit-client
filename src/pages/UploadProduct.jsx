@@ -8,6 +8,9 @@ import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux"
 import { IoClose } from "react-icons/io5";
 import AddFieldComponent from "../components/AddFieldComponent";
+import axiosToastError from "../utils/AxiosToastError";
+import Axios from "../utils/Axios";
+import summaryApi from "../common/summaryApi";
 
 const UploadProduct = () => {
   const [imageLoading, setImageLoading] = useState(false)
@@ -54,6 +57,18 @@ const UploadProduct = () => {
   // submit handler
   const handleSubmit = async (event) => {
     event.preventDefault()
+    try {
+      const response = await Axios({
+        ...summaryApi.addProduct,
+        data: data
+      })
+      const { data: responseData } = response
+      if (responseData.success) {
+        return toast.success(response.message)
+      }
+    } catch (error) {
+      return axiosToastError(error)
+    }
   }
   const handleDelete = (index) => {
     data.image.splice(index, 1)
