@@ -70,14 +70,17 @@ const UploadProduct = () => {
       return axiosToastError(error)
     }
   }
+  // handle delete
   const handleDelete = (index) => {
     data.image.splice(index, 1)
     setData((prev) => ({ ...prev }))
   }
+  // handle remove category
   const handleRemoveCategory = (index) => {
     data.category.splice(index, 1)
     setData((prev) => ({ ...prev }))
   }
+  // handle remove sub category
   const handleRemoveSubCategory = (index => {
     data.subCategory.splice(index, 1)
     setData((prev) => ({ ...prev }))
