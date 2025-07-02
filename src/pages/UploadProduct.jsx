@@ -283,7 +283,7 @@ const UploadProduct = () => {
             {
               Object?.keys(data?.more_details).map((key, index) => {
                 return (
-                  <div className="grid gap-1">
+                  <div key={index} className="grid gap-1">
                     <label htmlFor={key}>{key}</label>
                     <input type="text"
                       name="discount"
