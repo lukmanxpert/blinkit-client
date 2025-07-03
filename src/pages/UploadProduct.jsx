@@ -64,7 +64,20 @@ const UploadProduct = () => {
       })
       const { data: responseData } = response
       if (responseData.success) {
-        return toast.success(response.message)
+        console.log("responseData", responseData);
+        setData({
+          name: "",
+          image: [],
+          category: [],
+          subCategory: [],
+          unit: "",
+          stock: "",
+          price: "",
+          discount: "",
+          description: "",
+          more_details: {}
+        })
+        return toast.success(responseData.message)
       }
     } catch (error) {
       return axiosToastError(error)
@@ -160,7 +173,7 @@ const UploadProduct = () => {
           <div className="grid gap-1">
             <label htmlFor="category">Category</label>
             <div>
-              <select name="category" required id="category" value={selectCategory} className="bg-blue-50 border w-full p-2 rounded"
+              <select name="category" id="category" value={selectCategory} className="bg-blue-50 border w-full p-2 rounded"
                 onChange={(e) => {
                   const value = e.target.value
                   const category = allCategory.find(el => el._id === value)
@@ -195,7 +208,7 @@ const UploadProduct = () => {
           <div className="grid gap-1">
             <label htmlFor="category">Sub Category</label>
             <div>
-              <select name="category" required id="category" value={selectSubCategory} className="bg-blue-50 border w-full p-2 rounded"
+              <select name="category" id="category" value={selectSubCategory} className="bg-blue-50 border w-full p-2 rounded"
                 onChange={(e) => {
                   const value = e.target.value
                   const subCategory = allSubCategory.find(el => el._id === value)
