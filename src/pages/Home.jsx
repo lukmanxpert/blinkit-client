@@ -3,6 +3,7 @@ import bannerMobile from '../assets/banner-mobile.jpg'
 import { useSelector } from 'react-redux'
 const Home = () => {
   const loadingCategory = useSelector(state => state.products.loadingCategory)
+  const categoryData = useSelector(state => state.products.allCategory)
   return (
     <section className='bg-white'>
       <div className='container mx-auto rounded px-4'>
@@ -11,7 +12,7 @@ const Home = () => {
           <img src={bannerMobile} alt="banner image" className='w-full h-full lg:hidden' />
         </div>
       </div>
-      <div className='container mx-auto px-4 my-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+      <div className='container mx-auto px-4 my-2 grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2'>
         {loadingCategory ? (
           new Array(12).fill(null).map((c, idx) => {
             return (
@@ -22,7 +23,15 @@ const Home = () => {
             )
           })
         ) : (
-          <div></div>
+          categoryData.map((category, idx) => {
+            return (
+              <div>
+                <div>
+                  <img src={category.image} alt="category image" className='w-full h-full object-scale-down' />
+                </div>
+              </div>
+            )
+          })
         )
 
         }
