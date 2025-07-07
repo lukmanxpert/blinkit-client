@@ -4,12 +4,14 @@ import Axios from '../utils/Axios'
 import summaryApi from '../common/summaryApi'
 import Loading from '../components/Loading'
 import ProductCartAdmin from '../components/ProductCartAdmin'
+import { IoSearch } from "react-icons/io5";
 
 const ProductAdmin = () => {
   const [productData, setProductData] = useState([])
   const [page, setPage] = useState(1)
   const [totalPageCount, setTotalPageCount] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState("")
   const fetchProductData = async () => {
     try {
       setLoading(true)
@@ -17,7 +19,8 @@ const ProductAdmin = () => {
         ...summaryApi.getProduct,
         data: {
           page: page,
-          limit: 12
+          limit: 12,
+          search: search
         }
       })
       const { data: responseData } = response
@@ -42,14 +45,35 @@ const ProductAdmin = () => {
       setPage(prev => prev - 1)
     }
   }
+  const handleChange = (event) => {
+    const { value } = event.target
+    setSearch(value)
+    setPage(1)
+  }
   useEffect(() => {
     fetchProductData()
   }, [page])
+  useEffect(() => {
+    let flag = true
+    const interval = setTimeout(() => {
+      if (flag) {
+        fetchProductData()
+        flag = false
+      }
+    }, 300);
+    return () => {
+      clearTimeout(interval)
+    }
+  }, [search])
   console.log('productData :>> ', productData);
   return (
     <section>
-      <div className='flex justify-between shadow p-2'>
+      <div className='w-full ml-auto flex gap-4 justify-between shadow p-2'>
         <h1 className='font-semibold'>Products</h1>
+        <div className='h-full min-w-24 max-w-56 bg-blue-50 px-4 py-2 flex items-center gap-1 rounded border focus-within:border-primary-200'>
+          <IoSearch />
+          <input onChange={handleChange} value={search} type="text" name="" id="" className='h-full w-full px-4 bg-blue-50 outline-none' placeholder='Search products here...' />
+        </div>
       </div>
       {
         loading && <Loading />
