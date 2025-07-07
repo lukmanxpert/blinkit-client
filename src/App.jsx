@@ -9,7 +9,7 @@ import { setUserDetails } from './store/userSlice'
 import axiosToastError from './utils/AxiosToastError'
 import summaryApi from './common/summaryApi'
 import Axios from './utils/Axios'
-import { setAllCategory, setAllSubCategory } from './store/productsSlice'
+import { setAllCategory, setAllSubCategory, setLoadingCategory } from './store/productsSlice'
 
 function App() {
 
@@ -38,6 +38,7 @@ function App() {
   // fetch category
   const fetchSubCategory = async () => {
     try {
+      dispatch(setLoadingCategory(true))
       const response = await Axios({
         ...summaryApi.getSubCategory
       })
@@ -47,6 +48,8 @@ function App() {
       }
     } catch (error) {
       axiosToastError(error)
+    } finally {
+      dispatch(setLoadingCategory(false))
     }
   }
 

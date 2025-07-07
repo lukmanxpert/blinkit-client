@@ -15,7 +15,7 @@ const Search = () => {
         navigate("/search")
     }
     return (
-        <div onClick={navigateToSearch} className='flex justify-start items-center border border-neutral-300 text-neutral-600 rounded-lg min-w-[300px] md:min-w-[400px]'>
+        <div onClick={navigateToSearch} className='flex justify-start items-center border border-neutral-300 text-neutral-600 rounded-lg min-w-[300px] md:min-w-[400px] cursor-pointer'>
             <button className='cursor-pointer p-2'>
                 <FaSearch className='' />
             </button>
