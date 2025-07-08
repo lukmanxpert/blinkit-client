@@ -21,6 +21,7 @@ import SubCategory from './pages/SubCategory.jsx'
 import UploadProduct from './pages/UploadProduct.jsx'
 import ProductAdmin from './pages/ProductAdmin.jsx'
 import AdminPermission from './layouts/AdminPermission.jsx'
+import ProductListPage from './pages/ProductListPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -43,6 +44,9 @@ createRoot(document.getElementById('root')).render(
             <Route path='/dashboard/sub-category' element={<AdminPermission><SubCategory /></AdminPermission>} />
             <Route path='/dashboard/upload-product' element={<AdminPermission><UploadProduct /></AdminPermission>} />
             <Route path='/dashboard/product' element={<AdminPermission><ProductAdmin /></AdminPermission>} />
+          </Route>
+          <Route path=':category'>
+            <Route path=':subCategory' element={<ProductListPage />}></Route>
           </Route>
         </Route>
       </Routes>
