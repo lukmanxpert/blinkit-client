@@ -1,13 +1,15 @@
 import banner from '../assets/banner.jpg'
 import bannerMobile from '../assets/banner-mobile.jpg'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { validUrlConvert } from '../utils/validUrlConvert'
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
 const Home = () => {
   const navigate = useNavigate()
   const loadingCategory = useSelector(state => state.products.loadingCategory)
   const categoryData = useSelector(state => state.products.allCategory)
   const subCategoryData = useSelector(state => state.products.allSubCategory)
+  // handle redirect products list page
   const handleRedirectProductListPage = (id, name) => {
     console.log(id, name);
     const subCategory = subCategoryData.find(sub => {
@@ -19,6 +21,7 @@ const Home = () => {
     const url = `/${validUrlConvert(name)}-${id}/${validUrlConvert(subCategory.name)}-${subCategory._id}`
     navigate(url)
   }
+
   return (
     <section className='bg-white'>
       <div className='container mx-auto rounded px-4'>
@@ -51,6 +54,14 @@ const Home = () => {
 
         }
       </div>
+      {/* display category products */}
+      {
+        categoryData.map((el, index) => {
+          return (
+            <CategoryWiseProductDisplay id={el?._id} name={el?.name} key={index} />
+          )
+        })
+      }
     </section>
   )
 }
