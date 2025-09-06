@@ -41,7 +41,7 @@ const ProductAdmin = () => {
     }
   }
   const handlePrev = () => {
-    if (page > totalPageCount) {
+    if (page > 1) {
       setPage(prev => prev - 1)
     }
   }
@@ -65,7 +65,7 @@ const ProductAdmin = () => {
       clearTimeout(interval)
     }
   }, [search])
-  console.log('productData :>> ', productData);
+  console.log('page :>> ', page);
   return (
     <section>
       <div className='w-full ml-auto flex gap-4 justify-between shadow p-2'>
