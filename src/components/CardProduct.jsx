@@ -8,7 +8,7 @@ const CardProduct = ({ data }) => {
                 <img src={data.image[0]} className='w-full h-full object-scale-down scale-125' />
             </div>
             <div className='rounded text-sm w-fit p-[1px] px-2 text-green-600 bg-green-50'>
-                10 mnt
+                {/* 10 mnt */}
             </div>
             <div className='font-medium text-ellipsis line-clamp-2'>
                 {data.name}
@@ -21,7 +21,7 @@ const CardProduct = ({ data }) => {
                     {displayPriceInTaka(data.price)}
                 </div>
                 <div className='bg-green-600 hover:bg-green-700 text-white px-4'>
-                    <button>Add</button>
+                    <button className='rounded cursor-pointer'>Add</button>
                 </div>
             </div>
         </div>

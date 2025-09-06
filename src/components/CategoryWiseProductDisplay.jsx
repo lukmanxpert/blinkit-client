@@ -33,6 +33,7 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
 
     useEffect(() => {
         fetchCategoryWiseProducts()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const loadingCardNumber = new Array(6).fill(null)
