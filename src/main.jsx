@@ -22,6 +22,7 @@ import UploadProduct from './pages/UploadProduct.jsx'
 import ProductAdmin from './pages/ProductAdmin.jsx'
 import AdminPermission from './layouts/AdminPermission.jsx'
 import ProductListPage from './pages/ProductListPage.jsx'
+import ProductDisplayPage from './pages/ProductDisplayPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -48,6 +49,7 @@ createRoot(document.getElementById('root')).render(
           <Route path=':category'>
             <Route path=':subCategory' element={<ProductListPage />}></Route>
           </Route>
+          <Route path='/product/:product' element={<ProductDisplayPage />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

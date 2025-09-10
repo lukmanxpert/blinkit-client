@@ -1,9 +1,12 @@
 import React from 'react';
 import { displayPriceInTaka } from '../utils/DisplayPriceInTaka';
+import { Link } from 'react-router';
+import { validUrlConvert } from '../utils/validUrlConvert';
 
 const CardProduct = ({ data }) => {
+    const url = `/product/${validUrlConvert(data.name)}-${data._id}`
     return (
-        <div className='grid gap-3 p-4 max-w-52 lg:min-w-52 rounded'>
+        <Link to={url} className='grid gap-3 p-4 max-w-52 lg:min-w-52 rounded'>
             <div className='min-h-20 max-h-32 bg-blue-50 rounded'>
                 <img src={data.image[0]} className='w-full h-full object-scale-down scale-125' />
             </div>
@@ -13,7 +16,7 @@ const CardProduct = ({ data }) => {
             <div className='font-medium text-ellipsis line-clamp-2'>
                 {data.name}
             </div>
-            <div className='w-fit'>
+            <div className='w-fit text-ellipsis line-clamp-1'>
                 {data.unit}
             </div>
             <div className='flex items-center justify-between gap-3'>
@@ -24,7 +27,7 @@ const CardProduct = ({ data }) => {
                     <button className='rounded cursor-pointer'>Add</button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
