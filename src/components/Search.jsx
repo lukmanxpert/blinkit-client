@@ -15,9 +15,10 @@ const Search = () => {
         navigate("/search")
     }
     return (
-        <div onClick={navigateToSearch} className='flex justify-start items-center border border-neutral-300 text-neutral-600 rounded-lg min-w-[300px] md:min-w-[400px] cursor-pointer'>
-            <button className='cursor-pointer p-2'>
+        <div onClick={navigateToSearch} className='flex justify-start items-center border border-neutral-300 text-neutral-600 rounded-lg min-w-[50px] md:min-w-[400px] cursor-pointer'>
+            <button className='cursor-pointer flex items-center gap-2 p-2'>
                 <FaSearch className='' />
+                <span className='md:hidden'>Search</span>
             </button>
             <div>
                 {
@@ -26,7 +27,7 @@ const Search = () => {
                             <input type="text" autoFocus placeholder='Search for items...' className='w-full p-2 outline-0' />
                         </div>
                         :
-                        <div className='w-full'>
+                        <div className='w-full hidden md:block'>
                             <TypeAnimation
                                 sequence={[
                                     'Search "Milk"',

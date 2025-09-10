@@ -40,7 +40,7 @@ const Nav = () => {
         </div>
         {/* login and cart */}
         <div className='mr-2 md:hidden md:mr-0 flex items-center'>
-          <button>
+          <button className=''>
             <FaRegUserCircle onClick={handleMobileMenu} size={25} />
           </button>
         </div>
