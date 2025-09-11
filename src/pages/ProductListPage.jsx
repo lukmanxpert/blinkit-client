@@ -69,18 +69,16 @@ const ProductListPage = () => {
         })
         setDisplaySubCategory(sub)
     }, [params, AllSubCategory])
-
     return (
         <section className='sticky top-24 lg:top-20'>
-            <div className='container sticky top-24 mx-auto grid grid-cols-[60px_1fr] md:grid-cols-[140px_1fr] lg:grid-cols-[180px_1fr]'>
+            <div className='grid grid-cols-12'>
                 {/**sub category **/}
-                <div className='min-h-[88vh] max-h-[88vh] overflow-y-scroll  grid gap-1 shadow-md scrollbarCustom bg-white py-2'>
+                <div className='overflow-y-scroll h-screen scrollbarCustom col-span-2 md:col-span-2 shadow-md bg-white py-2'>
                     {
                         DisplaySubCategory.map((s, index) => {
                             const link = `/${validUrlConvert(s?.category[0]?.name)}-${s?.category[0]?._id}/${validUrlConvert(s.name)}-${s._id}`
                             return (
-                                <Link to={link} key={index} className={`w-full p-2 lg:flex items-center lg:w-full lg:h-16 box-border lg:gap-4 border-b 
-                  hover:bg-green-100 cursor-pointer
+                                <Link to={link} key={index} className={`flex items-center p-2 hover:bg-green-100 cursor-pointer
                   ${subCategoryId === s._id ? "bg-green-100" : ""}
                 `}
                                 >
@@ -91,18 +89,19 @@ const ProductListPage = () => {
                                             className=' w-14 lg:h-14 lg:w-12 h-full object-scale-down'
                                         />
                                     </div>
-                                    <p className='-mt-6 lg:mt-0 text-xs text-center lg:text-left lg:text-base'>{s.name}</p>
+                                    <p className='-mt-6 lg:mt-0 text-xs hidden md:block text-center lg:text-left lg:text-base'>{s.name}</p>
                                 </Link>
                             )
                         })
                     }
                 </div>
                 {/**Product **/}
-                <div className='sticky top-20'>
+                <div className='sticky top-20 col-span-10 md:col-span-10'>
                     <div className='bg-white shadow-md p-4 z-10'>
                         <h3 className='font-semibold'>{subCategoryName}</h3>
                     </div>
                     <div>
+
                         <div className='min-h-[80vh] max-h-[80vh] overflow-y-auto relative'>
                             <div className=' grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-4 gap-4 '>
                                 {
@@ -117,11 +116,13 @@ const ProductListPage = () => {
                                 }
                             </div>
                         </div>
+
                         {
                             loading && (
                                 <Loading />
                             )
                         }
+
                     </div>
                 </div>
             </div>
