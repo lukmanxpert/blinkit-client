@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import axiosToastError from '../utils/AxiosToastError'
 import Axios from '../utils/Axios'
@@ -84,7 +85,7 @@ const ProductAdmin = () => {
             {
               productData && productData.map((product, index) => {
                 return (
-                  <ProductCartAdmin data={product} key={index} />
+                  <ProductCartAdmin data={product} fetchProductData={fetchProductData} key={index} />
                 )
               })
             }
@@ -92,7 +93,7 @@ const ProductAdmin = () => {
         </div>
         <div className='flex justify-end gap-4 my-4'>
           <button onClick={handlePrev} className='border font-semibold border-primary-200 px-4 py-1 hover:bg-primary-200 transition cursor-pointer'>Previous</button>
-          <button>{page}/{totalPageCount}</button>
+          <button className='w-full bg-slate-100'>{page}/{totalPageCount}</button>
           <button onClick={handleNext} className='border font-semibold border-primary-200 px-4 py-1 hover:bg-primary-200 transition cursor-pointer'>Next</button>
         </div>
       </div>
