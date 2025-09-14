@@ -5,10 +5,10 @@ import { Link, useNavigate } from 'react-router'
 import { validUrlConvert } from '../utils/validUrlConvert'
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
 const Home = () => {
-  const navigate = useNavigate()
   const loadingCategory = useSelector(state => state.products.loadingCategory)
   const categoryData = useSelector(state => state.products.allCategory)
   const subCategoryData = useSelector(state => state.products.allSubCategory)
+  const navigate = useNavigate()
   // handle redirect products list page
   const handleRedirectProductListPage = (id, name) => {
     console.log(id, name);
@@ -56,7 +56,7 @@ const Home = () => {
       </div>
       {/* display category products */}
       {
-        categoryData.map((el, index) => {
+        categoryData?.map((el, index) => {
           return (
             <CategoryWiseProductDisplay id={el?._id} name={el?.name} key={index} />
           )
