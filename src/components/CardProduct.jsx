@@ -1,6 +1,7 @@
 import { displayPriceInTaka } from '../utils/DisplayPriceInTaka';
 import { Link } from 'react-router';
 import { validUrlConvert } from '../utils/validUrlConvert';
+import { priceWithDiscount } from '../utils/priceWithDiscount';
 
 const CardProduct = ({ data }) => {
     const url = `/product/${validUrlConvert(data.name)}-${data._id}`
@@ -29,28 +30,27 @@ const CardProduct = ({ data }) => {
             </div>
             <div className='w-fit gap-1 px-2 lg:px-0 text-sm lg:text-base'>
                 {data.unit}
-
             </div>
 
             <div className='px-2 lg:px-0 flex items-center justify-between gap-1 lg:gap-3 text-sm lg:text-base'>
                 <div className='flex items-center gap-1'>
                     <div className='font-semibold'>
-                        {displayPriceInTaka(data.price)}
+                        {displayPriceInTaka(priceWithDiscount(data.price, data.discount))}
                     </div>
                 </div>
-                <div className='bg-green-600 hover:bg-green-700 text-white px-4'>
-                    <button className='rounded cursor-pointer'>Add</button>
-                </div>
-                {/* <div className=''>
+                <div className=''>
                     {
                         data.stock == 0 ? (
                             <p className='text-red-500 text-sm text-center'>Out of stock</p>
                         ) : (
-                            <AddToCartButton data={data} />
+                            <div className='bg-green-600 hover:bg-green-700 text-white px-4'>
+                                <button className='rounded cursor-pointer'>Add</button>
+                            </div>
+                            // <AddToCartButton data={data} />
                         )
                     }
 
-                </div> */}
+                </div>
             </div>
 
         </Link>
