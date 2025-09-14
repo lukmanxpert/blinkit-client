@@ -70,8 +70,6 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
 
     const redirectURL = handleRedirectProductListPage()
 
-    console.log(id, name);
-
     return (
         <div>
             <div className='container mx-auto p-4 flex items-center justify-between gap-4'>
