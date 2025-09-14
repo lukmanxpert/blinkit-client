@@ -60,9 +60,12 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
 
             return filterData ? true : null
         })
-        const url = `/${validUrlConvert(name)}-${id}/${validUrlConvert(subcategory?.name)}-${subcategory?._id}`
+        if (!subcategory) {
+            return `/${validUrlConvert(name)}-${id}`;
+        }
+        const url = `/${validUrlConvert(name)}-${id}/${validUrlConvert(subcategory.name)}-${subcategory._id}`;
 
-        return url
+        return url;
     }
 
     const redirectURL = handleRedirectProductListPage()

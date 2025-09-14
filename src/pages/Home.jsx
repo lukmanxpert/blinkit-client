@@ -56,7 +56,7 @@ const Home = () => {
       </div>
       {/* display category products */}
       {
-        categoryData?.map((el, index) => {
+        categoryData.map((el, index) => {
           return (
             <CategoryWiseProductDisplay id={el?._id} name={el?.name} key={index} />
           )
