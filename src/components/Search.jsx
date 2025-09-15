@@ -5,8 +5,8 @@ import { TypeAnimation } from 'react-type-animation';
 
 const Search = () => {
     const [isSearch, setIsSearch] = useState(false);
-    const location = useLocation();
-
+    const params = useLocation();
+    const searchText = params.search.slice(3)
     const navigate = useNavigate();
     const navigateToSearch = () => {
         navigate("/search")
@@ -30,7 +30,7 @@ const Search = () => {
                 {
                     isSearch ?
                         <div className='w-full'>
-                            <input onChange={handleOnchange} type="text" autoFocus placeholder='Search for items...' className='w-full p-2 outline-0' />
+                            <input onChange={handleOnchange} defaultValue={searchText} type="text" autoFocus placeholder='Search for items...' className='w-full p-2 outline-0' />
                         </div>
                         :
                         <div className='w-full hidden md:block'>
