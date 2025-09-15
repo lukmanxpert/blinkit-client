@@ -6,14 +6,20 @@ import { TypeAnimation } from 'react-type-animation';
 const Search = () => {
     const [isSearch, setIsSearch] = useState(false);
     const location = useLocation();
-    useEffect(() => {
-        const isSearch = location.pathname === "/search"
-        setIsSearch(isSearch)
-    }, [location])
+
     const navigate = useNavigate();
     const navigateToSearch = () => {
         navigate("/search")
     }
+    const handleOnchange = (e) => {
+        const value = e.target.value
+        const url = `/search?q=${value}`
+        navigate(url)
+    }
+    useEffect(() => {
+        const isSearch = location.pathname === "/search"
+        setIsSearch(isSearch)
+    }, [location])
     return (
         <div onClick={navigateToSearch} className='flex justify-start items-center border border-neutral-300 text-neutral-600 rounded-lg min-w-[50px] md:min-w-[400px] cursor-pointer'>
             <button className='cursor-pointer flex items-center gap-2 p-2'>
@@ -24,7 +30,7 @@ const Search = () => {
                 {
                     isSearch ?
                         <div className='w-full'>
-                            <input type="text" autoFocus placeholder='Search for items...' className='w-full p-2 outline-0' />
+                            <input onChange={handleOnchange} type="text" autoFocus placeholder='Search for items...' className='w-full p-2 outline-0' />
                         </div>
                         :
                         <div className='w-full hidden md:block'>

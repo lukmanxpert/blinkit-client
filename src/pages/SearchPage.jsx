@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router"
 import Axios from "../utils/Axios"
@@ -27,7 +28,6 @@ const SearchPage = () => {
           page: page,
         }
       })
-
       const { data: responseData } = response
 
       if (responseData.success) {
@@ -42,7 +42,6 @@ const SearchPage = () => {
           })
         }
         setTotalPage(responseData.totalPage)
-        console.log(responseData)
       }
     } catch (error) {
       axiosToastError(error)
@@ -54,8 +53,6 @@ const SearchPage = () => {
   useEffect(() => {
     fetchData()
   }, [page, searchText])
-
-  console.log("page", page)
 
   const handleFetchMore = () => {
     if (totalPage > page) {
