@@ -83,7 +83,7 @@ const Nav = () => {
           </div> :
             <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
           }
-          <button className='flex gap-2 items-center justify-between bg-green-800 p-2'>
+          <button className='flex gap-2 items-center justify-between bg-green-800 p-1'>
             <FaShoppingCart className='animate-bounce' />
             {
               cartItems[0] ? (

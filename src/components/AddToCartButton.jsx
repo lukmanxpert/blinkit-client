@@ -9,7 +9,7 @@ import Loading from "./Loading";
 import { useGlobalContext } from "../provider/GlobalProvider";
 
 const AddToCartButton = ({ data }) => {
-    const { fetchCartItem, updateCartItem, deleteCartItem } = useGlobalContext()
+    const { fetchCartItems, updateCartItem, deleteCartItem } = useGlobalContext()
     const [loading, setLoading] = useState(false)
     const cartItem = useSelector(state => state.cartItems.cart)
     const [isAvailableCart, setIsAvailableCart] = useState(false)
@@ -32,8 +32,8 @@ const AddToCartButton = ({ data }) => {
 
             if (responseData.success) {
                 toast.success(responseData.message)
-                if (fetchCartItem) {
-                    fetchCartItem()
+                if (fetchCartItems) {
+                    fetchCartItems()
                 }
             }
         } catch (error) {
@@ -48,7 +48,6 @@ const AddToCartButton = ({ data }) => {
     useEffect(() => {
         const checkingItem = cartItem.some(item => item.productId._id === data._id)
         setIsAvailableCart(checkingItem)
-
         const product = cartItem.find(item => item.productId._id === data._id)
         setQuantity(product?.quantity)
         setCartItemsDetails(product)
@@ -58,15 +57,20 @@ const AddToCartButton = ({ data }) => {
     const increaseQty = async (e) => {
         e.preventDefault()
         e.stopPropagation()
-
-        updateCartItem(cartItemDetails?._id, quantity + 1)
+        updateCartItem(cartItemDetails?._id, quantity + 1, true)
+        fetchCartItems()
     }
 
     const decreaseQty = async (e) => {
         e.preventDefault()
         e.stopPropagation()
-        updateCartItem(cartItemDetails?._id, quantity - 1)
+        if (quantity === 1) {
+            deleteCartItem(cartItemDetails?._id)
+        } else {
+            updateCartItem(cartItemDetails?._id, quantity - 1, false)
+        }
     }
+
     return (
         <div className='w-full max-w-[150px]'>
             {
@@ -84,7 +88,6 @@ const AddToCartButton = ({ data }) => {
                     </button>
                 )
             }
-
         </div>
     )
 }
