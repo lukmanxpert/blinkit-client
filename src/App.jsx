@@ -10,6 +10,7 @@ import axiosToastError from './utils/AxiosToastError'
 import summaryApi from './common/summaryApi'
 import Axios from './utils/Axios'
 import { setAllCategory, setAllSubCategory, setLoadingCategory } from './store/productsSlice'
+import GlobalProvider from './provider/GlobalProvider'
 
 function App() {
 
@@ -53,15 +54,18 @@ function App() {
     }
   }
 
+
+
   useEffect(() => {
     fetchUser()
     fetchCategory()
     fetchSubCategory()
+    // fetchCartItems()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div>
+    <GlobalProvider>
       <div className='sticky top-0 left-0 z-50'>
         <Nav />
       </div>
@@ -70,7 +74,7 @@ function App() {
       </section>
       <Footer />
       <Toaster />
-    </div>
+    </GlobalProvider>
   )
 }
 

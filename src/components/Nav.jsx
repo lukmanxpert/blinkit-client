@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from "../assets/logo.png"
 import Search from './Search'
 import { Link, useNavigate } from 'react-router'
@@ -6,15 +6,19 @@ import { FaRegUserCircle, FaShoppingCart } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import UserMenu from './UserMenu'
+import { displayPriceInTaka } from '../utils/DisplayPriceInTaka'
 
 const Nav = () => {
   const user = useSelector((state) => state?.user)
   const [openUserMenu, setOpenUserMenu] = useState(false)
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalQuantity, setTotalQuantity] = useState(0)
   const navigate = useNavigate();
+  const cartItems = useSelector(state => state.cartItems.cart)
+
   const redirectToLogin = () => {
     navigate("/login")
   }
-
   const handleCloseUserMenu = () => {
     setOpenUserMenu(false)
   }
@@ -26,6 +30,17 @@ const Nav = () => {
       navigate("/user-menu")
     }
   }
+  // total items and total price
+  useEffect(() => {
+    const totalQuantity = cartItems.reduce((prev, curr) => {
+      return prev + curr.quantity
+    }, 0)
+    setTotalQuantity(totalQuantity)
+    const tPrice = cartItems.reduce((prev, curr) => {
+      return prev + (curr.productId.price * curr.quantity)
+    }, 0)
+    setTotalPrice(tPrice)
+  }, [cartItems])
 
   return (
     <header className='h-16 px-2 flex justify-between items-center shadow sticky top-0 bg-white'>
@@ -68,9 +83,18 @@ const Nav = () => {
           </div> :
             <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
           }
-          <button className='flex gap-2 items-center justify-between bg-green-800 p-2 rounded-lg'>
+          <button className='flex gap-2 items-center justify-between bg-green-800 p-2'>
             <FaShoppingCart className='animate-bounce' />
-            <p className='font-semibold'>My Cart</p>
+            {
+              cartItems[0] ? (
+                <div>
+                  <p>{totalQuantity} Items</p>
+                  <p>{displayPriceInTaka(totalPrice)}</p>
+                </div>
+              ) : (
+                <p className='font-semibold'>My Cart</p>
+              )
+            }
           </button>
         </div>
       </div>
