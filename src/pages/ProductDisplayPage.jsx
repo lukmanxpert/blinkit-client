@@ -13,6 +13,7 @@ import image2 from "../assets/Best_Prices_Offers.png"
 import image3 from "../assets/Wide_Assortment.png"
 import Loading from '../components/Loading';
 import { priceWithDiscount } from '../utils/priceWithDiscount';
+import AddToCartButton from '../components/AddToCartButton';
 
 const ProductDisplayPage = () => {
     const params = useParams()

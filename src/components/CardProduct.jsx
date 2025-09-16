@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { displayPriceInTaka } from '../utils/DisplayPriceInTaka';
 import { Link } from 'react-router';
 import { validUrlConvert } from '../utils/validUrlConvert';
@@ -8,35 +9,15 @@ import Axios from '../utils/Axios';
 import summaryApi from '../common/summaryApi';
 import toast from 'react-hot-toast';
 import { useGlobalContext } from '../provider/GlobalProvider';
+import AddToCartButton from './AddToCartButton';
 
 const CardProduct = ({ data }) => {
     const [loading, setLoading] = useState(false)
     const { fetchCartItems } = useGlobalContext()
     const url = `/product/${validUrlConvert(data.name)}-${data._id}`
-    const handleAddToCart = async (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        try {
-            setLoading(true)
-            const response = await Axios({
-                ...summaryApi.addToCart,
-                data: {
-                    productId: data?._id
-                }
-            })
-            const { data: responseData } = response
-            if (responseData.success) {
-                toast.success(responseData.message)
-                if (fetchCartItems) {
-                    fetchCartItems()
-                }
-            }
-        } catch (error) {
-            axiosToastError(error)
-        } finally {
-            setLoading(false)
-        }
-    }
+
+    
+    
     return (
         <Link to={url} className='border py-2 lg:p-4 grid gap-1 lg:gap-3 min-w-36 lg:min-w-52 rounded cursor-pointer bg-white' >
             <div className='min-h-20 w-full max-h-24 lg:max-h-32 rounded overflow-hidden'>
@@ -75,10 +56,10 @@ const CardProduct = ({ data }) => {
                         data.stock == 0 ? (
                             <p className='text-red-500 text-sm text-center'>Out of stock</p>
                         ) : (
-                            <div className='bg-green-600 hover:bg-green-700 text-white px-4'>
-                                <button onClick={handleAddToCart} className='rounded cursor-pointer'>Add</button>
-                            </div>
-                            // <AddToCartButton data={data} />
+                            // <div className='bg-green-600 hover:bg-green-700 text-white px-4'>
+                            //     <button onClick={handleAddToCart} className='rounded cursor-pointer'>Add</button>
+                            // </div>
+                            <AddToCartButton data={data} />
                         )
                     }
 

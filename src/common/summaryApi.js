@@ -117,6 +117,10 @@ const summaryApi = {
     url: "/api/cart/get",
     method: "get",
   },
+  updateCartItemQuantity: {
+    url: "/api/cart/update-quantity",
+    method: "put",
+  },
 };
 
 export default summaryApi;
