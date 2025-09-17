@@ -15,8 +15,6 @@ const CardProduct = ({ data }) => {
     const [loading, setLoading] = useState(false)
     const { fetchCartItems } = useGlobalContext()
     const url = `/product/${validUrlConvert(data.name)}-${data._id}`
-
-    
     
     return (
         <Link to={url} className='border py-2 lg:p-4 grid gap-1 lg:gap-3 min-w-36 lg:min-w-52 rounded cursor-pointer bg-white' >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import logo from "../assets/logo.png"
 import Search from './Search'
 import { Link, useNavigate } from 'react-router'
@@ -7,12 +7,14 @@ import { useSelector } from 'react-redux'
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import UserMenu from './UserMenu'
 import { displayPriceInTaka } from '../utils/DisplayPriceInTaka'
+import { useGlobalContext } from '../provider/GlobalProvider'
 
 const Nav = () => {
   const user = useSelector((state) => state?.user)
   const [openUserMenu, setOpenUserMenu] = useState(false)
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [totalQuantity, setTotalQuantity] = useState(0)
+  const { totalPrice, totalQuantity } = useGlobalContext()
+  // const [totalPrice, setTotalPrice] = useState(0)
+  // const [totalQuantity, setTotalQuantity] = useState(0)
   const navigate = useNavigate();
   const cartItems = useSelector(state => state.cartItems.cart)
 
@@ -31,16 +33,16 @@ const Nav = () => {
     }
   }
   // total items and total price
-  useEffect(() => {
-    const totalQuantity = cartItems.reduce((prev, curr) => {
-      return prev + curr.quantity
-    }, 0)
-    setTotalQuantity(totalQuantity)
-    const tPrice = cartItems.reduce((prev, curr) => {
-      return prev + (curr.productId.price * curr.quantity)
-    }, 0)
-    setTotalPrice(tPrice)
-  }, [cartItems])
+  // useEffect(() => {
+  //   const totalQuantity = cartItems.reduce((prev, curr) => {
+  //     return prev + curr.quantity
+  //   }, 0)
+  //   setTotalQuantity(totalQuantity)
+  //   const tPrice = cartItems.reduce((prev, curr) => {
+  //     return prev + (curr.productId.price * curr.quantity)
+  //   }, 0)
+  //   setTotalPrice(tPrice)
+  // }, [cartItems])
 
   return (
     <header className='h-16 px-2 flex justify-between items-center shadow sticky top-0 bg-white'>
@@ -83,7 +85,7 @@ const Nav = () => {
           </div> :
             <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
           }
-          <button className='flex gap-2 items-center justify-between bg-green-800 p-1'>
+          <button className='flex gap-2 items-center justify-between bg-green-800 p-2 rounded'>
             <FaShoppingCart className='animate-bounce' />
             {
               cartItems[0] ? (

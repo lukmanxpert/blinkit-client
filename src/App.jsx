@@ -11,6 +11,7 @@ import summaryApi from './common/summaryApi'
 import Axios from './utils/Axios'
 import { setAllCategory, setAllSubCategory, setLoadingCategory } from './store/productsSlice'
 import GlobalProvider from './provider/GlobalProvider'
+import CartMobileLink from './components/CartMobileLink'
 
 function App() {
 
@@ -74,6 +75,7 @@ function App() {
       </section>
       <Footer />
       <Toaster />
+      <CartMobileLink />
     </GlobalProvider>
   )
 }
