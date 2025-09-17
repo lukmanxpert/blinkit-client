@@ -73,7 +73,7 @@ const Nav = () => {
           </div> :
             <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
           }
-          <button onClick={() => setOpenCartSection(true)} className='text-sm flex gap-2 items-center justify-between bg-green-800 p-2 rounded'>
+          <button onClick={() => setOpenCartSection(true)} className='text-sm flex gap-2 items-center justify-between bg-green-800 p-2 rounded cursor-pointer'>
             <FaShoppingCart className='animate-bounce' />
             {
               cartItems[0] ? (

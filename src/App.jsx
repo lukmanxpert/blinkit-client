@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router'
+import { Outlet, useLocation } from 'react-router'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
@@ -16,6 +16,7 @@ import CartMobileLink from './components/CartMobileLink'
 function App() {
 
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const fetchUser = async () => {
     const userData = await fetchUserDetails()
@@ -75,7 +76,9 @@ function App() {
       </section>
       <Footer />
       <Toaster />
-      <CartMobileLink />
+      {
+        location.pathname !== "/checkout" && <CartMobileLink />
+      }
     </GlobalProvider>
   )
 }

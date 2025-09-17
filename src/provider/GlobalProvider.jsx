@@ -19,6 +19,7 @@ const GlobalProvider = ({ children }) => {
   const [totalQuantity, setTotalQuantity] = useState(0)
   const [notDiscountTotalPrice, setNotDiscountPrice] = useState(0)
   const cartItems = useSelector(state => state.cartItems.cart)
+  const user = useSelector(state => state.user)
 
   // fetch cart items
   const fetchCartItems = async () => {
@@ -80,9 +81,10 @@ const GlobalProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
+  const handleLogOut = () => {
+    localStorage.clear()
+    dispatch(handleAddCartItems([]))
+  }
 
   useEffect(() => {
     const totalQuantity = cartItems.reduce((prev, curr) => {
@@ -98,6 +100,11 @@ const GlobalProvider = ({ children }) => {
     }, 0)
     setNotDiscountPrice(notDiscountTotalPrice)
   }, [cartItems])
+
+  useEffect(() => {
+    fetchCartItems()
+    handleLogOut()
+  }, [user])
 
   return (
     <globalContext.Provider
