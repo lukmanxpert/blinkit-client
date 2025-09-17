@@ -17,6 +17,7 @@ const GlobalProvider = ({ children }) => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalQuantity, setTotalQuantity] = useState(0)
+  const [notDiscountTotalPrice, setNotDiscountPrice] = useState(0)
   const cartItems = useSelector(state => state.cartItems.cart)
 
   // fetch cart items
@@ -78,6 +79,7 @@ const GlobalProvider = ({ children }) => {
       axiosToastError(error)
     }
   }
+
   useEffect(() => {
     fetchCartItems();
   }, []);
@@ -91,6 +93,10 @@ const GlobalProvider = ({ children }) => {
       return prev + (priceWithDiscount(curr.productId.price, curr.productId.discount) * curr.quantity)
     }, 0)
     setTotalPrice(tPrice)
+    const notDiscountTotalPrice = cartItems.reduce((prev, curr) => {
+      return prev + (curr?.productId?.price * curr.quantity)
+    }, 0)
+    setNotDiscountPrice(notDiscountTotalPrice)
   }, [cartItems])
 
   return (
@@ -100,7 +106,8 @@ const GlobalProvider = ({ children }) => {
         updateCartItem,
         deleteCartItem,
         totalPrice,
-        totalQuantity
+        totalQuantity,
+        notDiscountTotalPrice
       }}
     >
       {children}

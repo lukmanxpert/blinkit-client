@@ -8,13 +8,13 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import UserMenu from './UserMenu'
 import { displayPriceInTaka } from '../utils/DisplayPriceInTaka'
 import { useGlobalContext } from '../provider/GlobalProvider'
+import DisplayCartItem from './DisplayCartItem'
 
 const Nav = () => {
   const user = useSelector((state) => state?.user)
   const [openUserMenu, setOpenUserMenu] = useState(false)
   const { totalPrice, totalQuantity } = useGlobalContext()
-  // const [totalPrice, setTotalPrice] = useState(0)
-  // const [totalQuantity, setTotalQuantity] = useState(0)
+  const [openCartSection, setOpenCartSection] = useState(false)
   const navigate = useNavigate();
   const cartItems = useSelector(state => state.cartItems.cart)
 
@@ -32,18 +32,6 @@ const Nav = () => {
       navigate("/user-menu")
     }
   }
-  // total items and total price
-  // useEffect(() => {
-  //   const totalQuantity = cartItems.reduce((prev, curr) => {
-  //     return prev + curr.quantity
-  //   }, 0)
-  //   setTotalQuantity(totalQuantity)
-  //   const tPrice = cartItems.reduce((prev, curr) => {
-  //     return prev + (curr.productId.price * curr.quantity)
-  //   }, 0)
-  //   setTotalPrice(tPrice)
-  // }, [cartItems])
-
   return (
     <header className='h-16 px-2 flex justify-between items-center shadow sticky top-0 bg-white'>
       <div className='container mx-auto flex justify-between items-center gap-4'>
@@ -85,7 +73,7 @@ const Nav = () => {
           </div> :
             <button onClick={redirectToLogin} className='text-black cursor-pointer font-semibold'>Login</button>
           }
-          <button className='flex gap-2 items-center justify-between bg-green-800 p-2 rounded'>
+          <button onClick={() => setOpenCartSection(true)} className='text-sm flex gap-2 items-center justify-between bg-green-800 p-2 rounded'>
             <FaShoppingCart className='animate-bounce' />
             {
               cartItems[0] ? (
@@ -100,6 +88,11 @@ const Nav = () => {
           </button>
         </div>
       </div>
+      {
+        openCartSection && (
+          <DisplayCartItem close={()=>setOpenCartSection(false)} />
+        )
+      }
     </header>
   )
 }
