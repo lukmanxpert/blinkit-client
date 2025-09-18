@@ -8,6 +8,7 @@ import Axios from "../utils/Axios";
 import summaryApi from "../common/summaryApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router"
+import { loadStripe } from "@stripe/stripe-js"
 
 const CheckOutPage = () => {
     const { notDiscountTotalPrice, totalPrice, totalQuantity, fetchCartItems } = useGlobalContext()
@@ -16,6 +17,8 @@ const CheckOutPage = () => {
     const [selectAddress, setSelectAddress] = useState(0)
     const cartItemList = useSelector(state => state.cartItems.cart)
     const navigate = useNavigate()
+
+    // handle cash online delivery
     const handleCashOnDelivery = async () => {
         try {
             const response = await Axios({
@@ -43,6 +46,31 @@ const CheckOutPage = () => {
             axiosToastError(error)
         }
     }
+
+    // handle online payment
+    const handleOnlinePayment = async () => {
+        try {
+            toast.loading("Loading...")
+            const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY
+            const stripePromise = await loadStripe(stripePublicKey)
+
+            const response = await Axios({
+                ...summaryApi.payment_url,
+                data: {
+                    list_items: cartItemList,
+                    addressId: addressList[selectAddress]?._id,
+                    subTotalAmt: totalPrice,
+                    totalAmt: totalPrice
+                }
+            })
+            const { data: responseData } = response
+            stripePromise.redirectToCheckout({sessionId: responseData.id})
+
+        } catch (error) {
+            axiosToastError(error)
+        }
+    }
+
     return (
         <section className='bg-blue-50'>
             <div className='container mx-auto p-4 flex flex-col lg:flex-row w-full gap-5 justify-between'>
@@ -99,7 +127,7 @@ const CheckOutPage = () => {
                         </div>
                     </div>
                     <div className='w-full flex flex-col gap-4'>
-                        <button className='py-2 px-4 bg-green-600 hover:bg-green-700 rounded text-white font-semibold cursor-pointer'>Online Payment</button>
+                        <button onClick={handleOnlinePayment} className='py-2 px-4 bg-green-600 hover:bg-green-700 rounded text-white font-semibold cursor-pointer'>Online Payment</button>
                         <button onClick={handleCashOnDelivery} className='py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white cursor-pointer'>Cash on Delivery</button>
                     </div>
                 </div>
