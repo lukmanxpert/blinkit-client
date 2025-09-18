@@ -4,11 +4,12 @@ import axiosToastError from "../utils/AxiosToastError";
 import Axios from "../utils/Axios";
 import summaryApi from "../common/summaryApi";
 import toast from "react-hot-toast";
+import { useGlobalContext } from "../provider/GlobalProvider";
 
 const AddAddress = ({ close }) => {
     const { register, handleSubmit, reset } = useForm()
+    const { fetchAddress } = useGlobalContext()
     const onSubmit = async (data) => {
-        console.log('data :>> ', data);
         try {
             const response = await Axios({
                 ...summaryApi.createAddress,
@@ -25,6 +26,9 @@ const AddAddress = ({ close }) => {
             if (responseData.success) {
                 toast.success(responseData.message)
                 reset()
+                if (fetchAddress) {
+                    fetchAddress()
+                }
                 if (close) {
                     close()
                 }

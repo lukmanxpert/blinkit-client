@@ -129,6 +129,10 @@ const summaryApi = {
     url: "/api/address/create",
     method: "post",
   },
+  getAddress: {
+    url: "/api/address/get",
+    method: "get",
+  },
 };
 
 export default summaryApi;
