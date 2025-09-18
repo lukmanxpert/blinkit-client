@@ -133,6 +133,18 @@ const summaryApi = {
     url: "/api/address/get",
     method: "get",
   },
+  updateAddress: {
+    url: "/api/address/update",
+    method: "put",
+  },
+  disableAddress: {
+    url: "/api/address/disable",
+    method: "delete",
+  },
+  cashOnDeliveryOrder: {
+    url: "/api/order/cash-on-delivery",
+    method: "post",
+  },
 };
 
 export default summaryApi;

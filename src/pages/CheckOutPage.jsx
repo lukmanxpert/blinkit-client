@@ -3,11 +3,42 @@ import { useGlobalContext } from "../provider/GlobalProvider";
 import { displayPriceInTaka } from "../utils/DisplayPriceInTaka";
 import AddAddress from "../components/AddAddress";
 import { useSelector } from "react-redux";
+import axiosToastError from "../utils/AxiosToastError";
+import Axios from "../utils/Axios";
+import summaryApi from "../common/summaryApi";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router"
 
 const CheckOutPage = () => {
-    const { notDiscountTotalPrice, totalPrice, totalQuantity } = useGlobalContext()
+    const { notDiscountTotalPrice, totalPrice, totalQuantity, fetchCartItems } = useGlobalContext()
     const [openAddress, setOpenAddress] = useState(false)
     const addressList = useSelector(state => state.addresses.addressList)
+    const [selectAddress, setSelectAddress] = useState(0)
+    const cartItemList = useSelector(state => state.cartItems.cart)
+    const navigate = useNavigate()
+    const handleCashOnDelivery = async () => {
+        try {
+            const response = await Axios({
+                ...summaryApi.cashOnDeliveryOrder,
+                data: {
+                    list_items: cartItemList,
+                    addressId: addressList[selectAddress]?._id,
+                    subTotalAmt: totalPrice,
+                    totalAmt: totalPrice
+                }
+            })
+            const { data: responseData } = response
+            if (responseData.success) {
+                toast.success(responseData.message)
+                if (fetchCartItems) {
+                    fetchCartItems()
+                }
+                navigate("/success")
+            }
+        } catch (error) {
+            axiosToastError(error)
+        }
+    }
     return (
         <section className='bg-blue-50'>
             <div className='container mx-auto p-4 flex flex-col lg:flex-row w-full gap-5 justify-between'>
@@ -65,7 +96,7 @@ const CheckOutPage = () => {
                     </div>
                     <div className='w-full flex flex-col gap-4'>
                         <button className='py-2 px-4 bg-green-600 hover:bg-green-700 rounded text-white font-semibold cursor-pointer'>Online Payment</button>
-                        <button className='py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white cursor-pointer'>Cash on Delivery</button>
+                        <button onClick={handleCashOnDelivery} className='py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white cursor-pointer'>Cash on Delivery</button>
                     </div>
                 </div>
             </div>

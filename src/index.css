@@ -34,3 +34,7 @@ body {
     font-weight: 100;
     font-style: normal;
 }
+
+input[type="radio"] {
+    accent-color: #2563eb;
+}

@@ -94,7 +94,6 @@ const GlobalProvider = ({ children }) => {
       })
       const { data: responseData } = response
       if (responseData.success) {
-        console.log('responseData :>> ', responseData);
         dispatch(handleAddAddress(responseData.data))
       }
     } catch (error) {
