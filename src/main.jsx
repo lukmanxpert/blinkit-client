@@ -25,6 +25,8 @@ import ProductListPage from './pages/ProductListPage.jsx'
 import ProductDisplayPage from './pages/ProductDisplayPage.jsx'
 import CartMobile from './pages/CartMobile.jsx'
 import CheckOutPage from './pages/CheckOutPage.jsx'
+import Success from './pages/Success.jsx'
+import Cancel from './pages/Cancel.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
@@ -54,6 +56,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/product/:product' element={<ProductDisplayPage />}></Route>
           <Route path='/cart' element={<CartMobile />}></Route>
           <Route path='/checkout' element={<CheckOutPage />}></Route>
+          <Route path='/success' element={<Success />}></Route>
+          <Route path='/cancel' element={<Cancel />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
