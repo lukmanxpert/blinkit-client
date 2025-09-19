@@ -10,6 +10,7 @@ const Search = () => {
     const navigate = useNavigate();
     const navigateToSearch = () => {
         navigate("/search")
+        setIsSearch(true)
     }
     const handleOnchange = (e) => {
         const value = e.target.value
@@ -19,7 +20,8 @@ const Search = () => {
     useEffect(() => {
         const isSearch = location.pathname === "/search"
         setIsSearch(isSearch)
-    }, [location])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname])
     return (
         <div onClick={navigateToSearch} className='flex justify-start items-center border border-neutral-300 text-neutral-600 rounded-lg min-w-[50px] md:min-w-[400px] cursor-pointer'>
             <button className='cursor-pointer flex items-center gap-2 p-2'>
