@@ -63,7 +63,6 @@ const EditProductAdmin = ({ close, data: propsData, fetchProductData }) => {
             }
         })
         setImageLoading(false)
-
     }
 
     const handleDeleteImage = async (index) => {
