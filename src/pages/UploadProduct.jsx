@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { FaCloudUploadAlt } from "react-icons/fa";
-import uploadImage from "../utils/uploadImage.js";
+import uploadImage from "../utils/UploadImage.js";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
 import ViewImages from "../components/ViewImages";

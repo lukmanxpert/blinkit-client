@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IoClose } from "react-icons/io5";
-import uploadImage from '../utils/uploadImage';
+import uploadImage from '../utils/UploadImage';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { MdDeleteForever } from "react-icons/md";
