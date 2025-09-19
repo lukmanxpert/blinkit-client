@@ -3,13 +3,13 @@ import { MdDelete } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { useSelector } from "react-redux"
-import uploadImage from "../utils/UploadImage";
 import Axios from "../utils/Axios";
 import summaryApi from "../common/summaryApi";
 import axiosToastError from "../utils/AxiosToastError";
 import ViewImages from "./ViewImages";
 import AddFieldComponent from "./AddFieldComponent";
 import toast from "react-hot-toast";
+import uploadImage from "../utils/UploadImage";
 
 const EditProductAdmin = ({ close, data: propsData, fetchProductData }) => {
     const [data, setData] = useState({
