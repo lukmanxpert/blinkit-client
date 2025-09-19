@@ -149,6 +149,10 @@ const summaryApi = {
     url: "/api/order/checkout",
     method: "post",
   },
+  getOrderItems: {
+    url: "/api/order/order-list",
+    method: "get",
+  },
 };
 
 export default summaryApi;

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router"
 import { loadStripe } from "@stripe/stripe-js"
 
 const CheckOutPage = () => {
-    const { notDiscountTotalPrice, totalPrice, totalQuantity, fetchCartItems } = useGlobalContext()
+    const { notDiscountTotalPrice, totalPrice, totalQuantity, fetchCartItems, fetchOrder } = useGlobalContext()
     const [openAddress, setOpenAddress] = useState(false)
     const addressList = useSelector(state => state.addresses.addressList)
     const [selectAddress, setSelectAddress] = useState(0)
@@ -35,6 +35,9 @@ const CheckOutPage = () => {
                 toast.success(responseData.message)
                 if (fetchCartItems) {
                     fetchCartItems()
+                }
+                if (fetchOrder) {
+                    fetchOrder()
                 }
                 navigate("/success", {
                     state: {
@@ -64,7 +67,13 @@ const CheckOutPage = () => {
                 }
             })
             const { data: responseData } = response
-            stripePromise.redirectToCheckout({sessionId: responseData.id})
+            stripePromise.redirectToCheckout({ sessionId: responseData.id })
+            if (fetchCartItems) {
+                fetchCartItems()
+            }
+            if (fetchOrder) {
+                fetchOrder()
+            }
 
         } catch (error) {
             axiosToastError(error)
